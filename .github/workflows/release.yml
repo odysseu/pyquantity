@@ -6,8 +6,13 @@ on:
       - 'v*'  # Trigger on version tags like v1.0.0
 
 jobs:
+  get-matrix:
+    name: Get Python Matrix
+    uses: ./.github/workflows/python-matrix.yml
+
   release:
     name: Create GitHub Release
+    needs: get-matrix
     runs-on: ubuntu-latest
     
     steps:
@@ -15,9 +20,9 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: "3.12"
+        python-version: ${{ needs.get-matrix.outputs.latest }}
 
     - name: Install build dependencies
       run: pip install build

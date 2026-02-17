@@ -1,0 +1,30 @@
+name: Python Matrix
+
+on:
+  workflow_call:
+    outputs:
+      matrix:
+        description: "Python versions matrix"
+        value: ${{ jobs.generate-matrix.outputs.matrix }}
+      latest:
+        description: "Latest Python version"
+        value: ${{ jobs.generate-matrix.outputs.latest }}
+
+jobs:
+  generate-matrix:
+    name: Generate Python Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      latest: ${{ steps.set-matrix.outputs.latest }}
+    steps:
+      - name: Set matrix
+        id: set-matrix
+        run: |
+          # Define Python versions in one place
+          versions='["3.10", "3.11", "3.12", "3.13", "3.14"]'
+          latest="3.14"
+          
+          # Set outputs
+          echo "matrix=$versions" >> $GITHUB_OUTPUT
+          echo "latest=$latest" >> $GITHUB_OUTPUT

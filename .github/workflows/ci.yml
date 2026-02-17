@@ -7,19 +7,24 @@ on:
     branches: [ main ]
 
 jobs:
+  get-matrix:
+    name: Get Python Matrix
+    uses: ./.github/workflows/python-matrix.yml
+
   ci:
     name: CI Pipeline
+    needs: get-matrix
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ${{ fromJSON(needs.get-matrix.outputs.matrix) }}
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -43,20 +48,20 @@ jobs:
     - name: Generate coverage badge
       run: python generate_coverage_badge.py
 
-    - name: Build documentation
-      run: |
-        cd docs
-        make html
+    # - name: Build documentation
+    #   run: |
+    #     cd docs
+    #     make html
 
     - name: Build package
       run: |
         python -m build --sdist --wheel
 
-    - name: Upload documentation artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: documentation-html-py${{ matrix.python-version }}
-        path: docs/build/html/
+    # - name: Upload documentation artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: documentation-html-py${{ matrix.python-version }}
+    #     path: docs/build/html/
 
     - name: Upload package artifacts
       uses: actions/upload-artifact@v4
