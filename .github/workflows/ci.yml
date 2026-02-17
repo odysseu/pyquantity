@@ -55,11 +55,11 @@ jobs:
     - name: Upload documentation artifact
       uses: actions/upload-artifact@v4
       with:
-        name: documentation-html
+        name: documentation-html-py${{ matrix.python-version }}
         path: docs/build/html/
 
     - name: Upload package artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: python-package-distributions
+        name: python-package-distributions-py${{ matrix.python-version }}
         path: dist/
