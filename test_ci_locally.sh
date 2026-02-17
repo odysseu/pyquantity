@@ -12,7 +12,7 @@ echo "2. Running linter..."
 ruff check .
 
 echo "3. Running type checker..."
-mypy .
+mypy src/pyquantity
 
 echo "4. Running tests..."
 pytest --cov=pyquantity --cov-report=term-missing

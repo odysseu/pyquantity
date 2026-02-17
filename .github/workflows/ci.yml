@@ -28,13 +28,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e .
         pip install black isort mypy pytest pytest-cov ruff build
+        pip install types-setuptools  # Required for mypy to check setup.py
         pip install sphinx furo myst-parser
 
     - name: Run linter
       run: ruff check .
 
     - name: Run type checker
-      run: mypy .
+      run: mypy src/pyquantity
 
     - name: Run tests with coverage
       run: pytest --cov=pyquantity --cov-report=term-missing
