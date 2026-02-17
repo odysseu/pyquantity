@@ -27,7 +27,7 @@ jobs:
 
     - name: Create GitHub Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: softprops/action-gh-release@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -37,21 +37,15 @@ jobs:
         prerelease: false
 
     - name: Upload Release Assets
-      uses: actions/upload-release-asset@v1
+      uses: softprops/action-gh-release@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/*.whl
-        asset_name: pyquantity-${{ github.ref_name }}-py3-none-any.whl
-        asset_content_type: application/octet-stream
+        files: dist/*.whl
 
     - name: Upload Source Distribution
-      uses: actions/upload-release-asset@v1
+      uses: softprops/action-gh-release@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/*.tar.gz
-        asset_name: pyquantity-${{ github.ref_name }}.tar.gz
-        asset_content_type: application/gzip
+        files: dist/*.tar.gz
