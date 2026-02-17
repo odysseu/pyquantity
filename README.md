@@ -55,6 +55,18 @@ pip install pyquantity
 - Python 3.10 or higher (following [Python's version support policy](https://devguide.python.org/versions/))
 - No additional system dependencies required
 
+**For Developers:**
+```bash
+# Install with development dependencies
+pip install -e ".[dev]"
+
+# Run tests with coverage and badge generation
+python test_with_coverage.py
+
+# Or use the convenience alias (after sourcing pytest_alias.sh)
+pytest
+```
+
 ## Quick Start
 
 ```python
@@ -351,7 +363,7 @@ This project includes a comprehensive CI workflow:
 - **Documentation building** with Sphinx
 - **Package building** and artifact upload
 
-**Local Coverage Reporting**: Test coverage is checked locally during CI runs with a minimum threshold of 70%. See the [CI workflow](.github/workflows/ci.yml) for implementation details.
+**Local Coverage Reporting**: Test coverage is checked locally during CI runs with a minimum threshold of 70%. The `test_with_coverage.py` script automatically runs tests and generates coverage badges. See the [CI workflow](.github/workflows/ci.yml) for implementation details.
 
 **Python Version Support Policy**
 
