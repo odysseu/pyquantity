@@ -6,25 +6,26 @@ and return structured data.
 """
 
 import re
-from typing import List, Dict, Any, Optional
+from typing import Any
+
 from .core import Quantity
 
 
 class QuantityParser:
     """
     Parse natural language text to extract quantities with their values and units.
-    
+
     This class provides methods to extract structured quantity information from
     sentences like "The voltage is 230 V and the current is 10 A".
     """
-    
+
     # Common unit abbreviations and their full names
     UNIT_ABBREVIATIONS = {
         # Electrical units
         'v': 'volt', 'volts': 'volt',
         'a': 'ampere', 'amps': 'ampere',
         'w': 'watt', 'watts': 'watt',
-        'ω': 'ohm', 'ohms': 'ohm', 'ω': 'ohm',  # Include Ω symbol
+        'ω': 'ohm', 'ohms': 'ohm',  # Include Ω symbol
         'f': 'farad', 'farads': 'farad',
         'h': 'henry', 'henrys': 'henry',
         'c': 'coulomb', 'coulombs': 'coulomb',
@@ -34,16 +35,16 @@ class QuantityParser:
         'hz': 'hertz',
         '°c': 'celsius', 'celsius': 'celsius',
         '°f': 'fahrenheit', 'fahrenheit': 'fahrenheit',
-        
+
         # SI base units
         'm': 'meter', 'meters': 'meter', 'metre': 'meter', 'metres': 'meter',
         'kg': 'kilogram', 'kilograms': 'kilogram',
         'g': 'gram', 'grams': 'gram',
-        's': 'second', 'seconds': 'second', 'sec': 'second', 'secs': 'second',
+        'seconds': 'second', 'sec': 'second', 'secs': 'second',
         'k': 'kelvin',
         'mol': 'mole', 'moles': 'mole',
         'cd': 'candela', 'candelas': 'candela',
-        
+
         # Common units
         'l': 'liter', 'liters': 'liter', 'litre': 'liter', 'litres': 'liter',
         'ml': 'milliliter', 'milliliters': 'milliliter', 'millilitre': 'milliliter',
@@ -54,7 +55,7 @@ class QuantityParser:
         'kg/m³': 'kilogram/meter³',
         'm/s': 'meter/second', 'm/s²': 'meter/second²',
     }
-    
+
     # Common quantity keywords for context
     QUANTITY_KEYWORDS = {
         # Electrical
@@ -70,7 +71,7 @@ class QuantityParser:
         'conductance': 'conductance',
         'magnetic flux': 'magnetic_flux',
         'magnetic field': 'magnetic_field',
-        
+
         # Physical
         'length': 'length', 'distance': 'distance', 'height': 'height', 'width': 'width',
         'weight': 'weight', 'mass': 'mass',
@@ -83,12 +84,12 @@ class QuantityParser:
         'force': 'force',
         'pressure': 'pressure',
         'energy': 'energy',
-        
+
         # General
         'value': 'value', 'measurement': 'measurement', 'reading': 'reading',
         'amount': 'amount', 'quantity': 'quantity',
     }
-    
+
     # SI prefixes for unit recognition
     SI_PREFIXES = {
         'y': 'yocto', 'z': 'zepto', 'a': 'atto', 'f': 'femto',
@@ -98,35 +99,35 @@ class QuantityParser:
         'M': 'mega', 'G': 'giga', 'T': 'tera',
         'P': 'peta', 'E': 'exa', 'Z': 'zetta', 'Y': 'yotta'
     }
-    
+
     def __init__(self):
         self.quantity_pattern = self._build_quantity_pattern()
-    
+
     def _build_quantity_pattern(self) -> re.Pattern:
         """Build a regex pattern to match quantities in text."""
         # Pattern to match numbers (including decimals and scientific notation)
         number_pattern = r'\d+\.?\d*(?:[eE][-+]?\d+)?'
-        
+
         # Pattern to match units (allow for prefixes, compound units, and special symbols)
         # Include common special characters like Ω, °, µ, etc.
         # Use case-insensitive matching and allow for various symbols
         unit_pattern = r'[a-zA-ZμµΩ°²³/%\-]+'
-        
+
         # Combine into quantity pattern (use raw string for regex)
         quantity_pattern = rf'({number_pattern})\s*({unit_pattern})'
-        
+
         return re.compile(quantity_pattern, re.IGNORECASE)
-    
-    def extract_quantities(self, text: str) -> List[Dict[str, Any]]:
+
+    def extract_quantities(self, text: str) -> list[dict[str, Any]]:
         """
         Extract quantities from text and return structured data.
-        
+
         Args:
             text: The input text to parse
-            
+
         Returns:
             List of dictionaries with extracted quantity information
-            
+
         Example:
             >>> parser = QuantityParser()
             >>> parser.extract_quantities("The voltage is 230 V and current is 10 A")
@@ -148,28 +149,27 @@ class QuantityParser:
             ]
         """
         quantities = []
-        
+
         # Find all quantity matches in the text
         matches = self.quantity_pattern.finditer(text)
-        
+
         for match in matches:
             value_str, unit_str = match.groups()
             original_text = match.group(0)
-            
+
             try:
                 # Clean and normalize the unit for Quantity creation
                 clean_unit = self._normalize_unit(unit_str)
-                
+
                 # Try to create a Quantity object to validate
                 value = float(value_str)
                 quantity = Quantity(value, clean_unit)
-                
+
                 # Determine the object type based on context and original unit
                 object_type = self._determine_object_type(text, match.start(), match.end(), unit_str)
-                
+
                 # For display, use the original unit (but we'll keep both)
-                display_unit = unit_str
-                
+
                 quantities.append({
                     'object': object_type,
                     'value': value,
@@ -179,31 +179,31 @@ class QuantityParser:
                     'start_pos': match.start(),
                     'end_pos': match.end()
                 })
-                
-            except (ValueError, KeyError) as e:
+
+            except (ValueError, KeyError):
                 # Skip quantities that can't be parsed
                 continue
-        
+
         return quantities
-    
+
     def _normalize_unit(self, unit_str: str) -> str:
         """Normalize a unit string to its standard form."""
         unit_str = unit_str.lower().strip()
-        
+
         # First, check if the full unit (with possible plural) is in our abbreviations
         if unit_str in self.UNIT_ABBREVIATIONS:
             return self.UNIT_ABBREVIATIONS[unit_str]
-        
+
         # Remove plural 's' if present
         if unit_str.endswith('s') and len(unit_str) > 1:
             singular_unit = unit_str[:-1]
             if singular_unit in self.UNIT_ABBREVIATIONS:
                 return self.UNIT_ABBREVIATIONS[singular_unit]
-        
+
         # Handle special case for ohm symbol (Ω)
         if unit_str == 'ω' or unit_str == 'Ω':
             return 'ohm'
-        
+
         # Handle SI prefixes - check for valid prefix + base unit combinations
         for prefix in sorted(self.SI_PREFIXES.keys(), key=len, reverse=True):
             if unit_str.startswith(prefix):
@@ -220,20 +220,20 @@ class QuantityParser:
                 elif base_unit == 'ω' or base_unit == 'Ω':
                     full_prefix = self.SI_PREFIXES[prefix]
                     return f"{full_prefix}ohm"
-        
+
         # Return as-is if we can't normalize (will be validated by Quantity constructor)
         return unit_str
-    
+
     def _determine_object_type(self, text: str, quantity_start: int, quantity_end: int, unit_str: str) -> str:
         """Determine the type of quantity based on surrounding context and unit."""
         # Look for keywords before and after the quantity
         text_before = text[:quantity_start].lower()
         text_after = text[quantity_end:].lower()
-        
+
         # Find the closest keyword to the quantity
         closest_keyword = None
         closest_distance = float('inf')
-        
+
         for keyword, object_type in self.QUANTITY_KEYWORDS.items():
             # Check in text before
             pos_before = text_before.rfind(keyword)
@@ -243,7 +243,7 @@ class QuantityParser:
                     closest_distance = distance
                     closest_keyword = keyword
                     closest_object_type = object_type
-            
+
             # Check in text after
             pos_after = text_after.find(keyword)
             if pos_after != -1:
@@ -252,10 +252,10 @@ class QuantityParser:
                     closest_distance = distance
                     closest_keyword = keyword
                     closest_object_type = object_type
-        
+
         if closest_keyword:
             return closest_object_type
-        
+
         # Default to generic types based on unit
         unit_to_object = {
             'volt': 'voltage', 'v': 'voltage',
@@ -271,35 +271,35 @@ class QuantityParser:
             'tesla': 'magnetic_field', 't': 'magnetic_field',
             'meter': 'length', 'm': 'length',
             'kilogram': 'mass', 'kg': 'mass', 'gram': 'mass', 'g': 'mass',
-            'second': 'time', 's': 'time',
+            'seconds': 'time',
             'kelvin': 'temperature', 'k': 'temperature',
             'mole': 'amount', 'mol': 'amount',
             'candela': 'luminosity', 'cd': 'luminosity',
             'liter': 'volume', 'l': 'volume'
         }
-        
+
         # Get the base unit (without prefix)
         base_unit = unit_str
         for prefix in self.SI_PREFIXES.keys():
             if unit_str.startswith(prefix):
                 base_unit = unit_str[len(prefix):]
                 break
-        
+
         return unit_to_object.get(base_unit, 'measurement')
-    
+
     def extract_to_json(self, text: str) -> str:
         """
         Extract quantities and return as JSON string.
-        
+
         Args:
             text: The input text to parse
-            
+
         Returns:
             JSON string with extracted quantities
         """
         import json
         quantities = self.extract_quantities(text)
-        
+
         # Convert Quantity objects to dict for JSON serialization
         json_data = []
         for q in quantities:
@@ -310,16 +310,16 @@ class QuantityParser:
                 'original_text': q['original_text']
             }
             json_data.append(quantity_dict)
-        
+
         return json.dumps(json_data, indent=2)
-    
-    def extract_to_list(self, text: str) -> List[Dict[str, Any]]:
+
+    def extract_to_list(self, text: str) -> list[dict[str, Any]]:
         """
         Extract quantities and return as a list of dictionaries.
-        
+
         Args:
             text: The input text to parse
-            
+
         Returns:
             List of dictionaries with quantity information
         """
@@ -338,16 +338,16 @@ class QuantityParser:
 def parse_quantities(text: str, format: str = 'list') -> Any:
     """
     Convenience function to parse quantities from text.
-    
+
     Args:
         text: The input text to parse
         format: Output format ('list', 'json', or 'objects')
-        
+
     Returns:
         Parsed quantities in the requested format
     """
     parser = QuantityParser()
-    
+
     if format == 'json':
         return parser.extract_to_json(text)
     elif format == 'list':

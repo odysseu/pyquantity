@@ -10,7 +10,7 @@ in pyproject.toml following PEP 621.
 from setuptools import setup
 
 # Read the long description from README.md
-with open("README.md", "r", encoding="utf-8") as f:
+with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
@@ -23,12 +23,12 @@ setup(
     author="Odysseu",
     author_email="uboucherie1@gmail.com",
     url="https://github.com/odysseu/pyquantity",
-    
+
     # Package structure
     package_dir={"": "src"},
     packages=["pyquantity"],
     python_requires=">=3.10",
-    
+
     # Classifiers
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -41,7 +41,7 @@ setup(
         "Programming Language :: Python :: 3.13",
         "Programming Language :: Python :: 3.14",
     ],
-    
+
     # Project URLs
     project_urls={
         "Homepage": "https://github.com/odysseu/pyquantity",
