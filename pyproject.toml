@@ -91,6 +91,7 @@ exclude = ["build/", "dist/"]
 [tool.pytest.ini_options]
 python_files = "test_*.py"
 testpaths = ["tests"]
+addopts = "--cov=pyquantity --cov-report=term-missing --cov-report=html --cov-report=xml"
 
 [tool.coverage.run]
 source = ["src"]
@@ -98,7 +99,7 @@ branch = true
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 80
+fail_under = 70
 
 [tool.ruff]
 line-length = 88

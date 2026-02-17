@@ -38,7 +38,10 @@ jobs:
       run: mypy src/pyquantity
 
     - name: Run tests with coverage
-      run: pytest --cov=pyquantity --cov-report=term-missing
+      run: pytest
+
+    - name: Generate coverage badge
+      run: python generate_coverage_badge.py
 
     - name: Build documentation
       run: |

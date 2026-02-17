@@ -14,8 +14,12 @@ ruff check .
 echo "3. Running type checker..."
 mypy src/pyquantity
 
-echo "4. Running tests..."
-pytest --cov=pyquantity --cov-report=term-missing
+echo "4. Running tests with coverage..."
+pytest
+
+# Generate coverage badge
+echo "5. Generating coverage badge..."
+python generate_coverage_badge.py
 
 echo "5. Building documentation..."
 cd docs

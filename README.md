@@ -1,6 +1,17 @@
 # PyQuantity
 
+[![CI](https://github.com/odysseu/pyquantity/actions/workflows/ci.yml/badge.svg)](https://github.com/odysseu/pyquantity/actions/workflows/ci.yml)
+![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)
+![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)
+![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)
+![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)
+![Python 3.14](https://img.shields.io/badge/python-3.14-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 A modern Python package for quantity calculations with comprehensive unit support, dimensional analysis, and contextual measurements.
+
+**Test Coverage**: ![Coverage](coverage_badge.svg) (Local coverage reporting with pytest-cov)
 
 ## Features
 
@@ -333,12 +344,14 @@ See the [examples directory](examples/) for comprehensive usage examples:
 ## CI/CD
 
 This project includes a comprehensive CI workflow:
-- Automatic testing on multiple Python versions (3.10-3.14)
-- Linting with ruff
-- Type checking with mypy
-- Test coverage with pytest-cov
-- Documentation building with Sphinx
-- Package building and artifact upload
+- **Automatic testing** on multiple Python versions (3.10-3.14)
+- **Linting** with ruff
+- **Type checking** with mypy
+- **Local test coverage** with pytest-cov (70% threshold)
+- **Documentation building** with Sphinx
+- **Package building** and artifact upload
+
+**Local Coverage Reporting**: Test coverage is checked locally during CI runs with a minimum threshold of 70%. See the [CI workflow](.github/workflows/ci.yml) for implementation details.
 
 **Python Version Support Policy**
 
