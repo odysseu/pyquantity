@@ -40,6 +40,10 @@ A modern Python package for quantity calculations with comprehensive unit suppor
 pip install pyquantity
 ```
 
+**Requirements:**
+- Python 3.10 or higher (following [Python's version support policy](https://devguide.python.org/versions/))
+- No additional system dependencies required
+
 ## Quick Start
 
 ```python
@@ -329,12 +333,21 @@ See the [examples directory](examples/) for comprehensive usage examples:
 ## CI/CD
 
 This project includes a comprehensive CI workflow:
-- Automatic testing on multiple Python versions (3.8-3.12)
+- Automatic testing on multiple Python versions (3.10-3.14)
 - Linting with ruff
 - Type checking with mypy
 - Test coverage with pytest-cov
 - Documentation building with Sphinx
 - Package building and artifact upload
+
+**Python Version Support Policy**
+
+Following [Python's official version support policy](https://devguide.python.org/versions/), this project supports Python versions that are either:
+- In the "Feature" release phase (currently 3.14)
+- In the "Bugfix" release phase (currently 3.10-3.13)
+- Not in the "Security" phase only (3.9 and earlier are no longer supported)
+
+This ensures users get the best balance of stability, security, and modern language features.
 
 See [.github/workflows/ci.yml](.github/workflows/ci.yml) for details.
 
