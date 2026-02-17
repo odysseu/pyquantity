@@ -1,0 +1,1034 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Advanced Features Guide - pyquantity 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">pyquantity 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">pyquantity 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/advanced_features.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section class="tex2jax_ignore mathjax_ignore" id="advanced-features-guide">
+<h1>Advanced Features Guide<a class="headerlink" href="#advanced-features-guide" title="Link to this heading">¶</a></h1>
+<p>This guide covers the enhanced features of PyQuantity, including expanded unit systems, contextual measurements, and natural language parsing.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#enhanced-unit-systems"><span class="xref myst">Enhanced Unit Systems</span></a></p></li>
+<li><p><a class="reference internal" href="#contextual-measurements"><span class="xref myst">Contextual Measurements</span></a></p></li>
+<li><p><a class="reference internal" href="#natural-language-parsing"><span class="xref myst">Natural Language Parsing</span></a></p></li>
+<li><p><a class="reference internal" href="#advanced-physics-calculations"><span class="xref myst">Advanced Physics Calculations</span></a></p></li>
+<li><p><a class="reference internal" href="#practical-applications"><span class="xref myst">Practical Applications</span></a></p></li>
+</ul>
+</section>
+<section id="enhanced-unit-systems">
+<h2>Enhanced Unit Systems<a class="headerlink" href="#enhanced-unit-systems" title="Link to this heading">¶</a></h2>
+<p>PyQuantity now supports a comprehensive set of units and dimensions beyond the basic SI units.</p>
+<section id="expanded-base-dimensions">
+<h3>Expanded Base Dimensions<a class="headerlink" href="#expanded-base-dimensions" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyquantity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dimension</span>
+
+<span class="c1"># All available dimensions:</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">LENGTH</span>          <span class="c1"># Length</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">MASS</span>            <span class="c1"># Mass</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">TIME</span>            <span class="c1"># Time</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">ELECTRIC_CURRENT</span> <span class="c1"># Electric current</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">TEMPERATURE</span>     <span class="c1"># Temperature</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">AMOUNT_OF_SUBSTANCE</span> <span class="c1"># Amount of substance</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">LUMINOUS_INTENSITY</span> <span class="c1"># Luminous intensity</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">ANGLE</span>           <span class="c1"># Plane angle</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">SOLID_ANGLE</span>     <span class="c1"># Solid angle</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">FREQUENCY</span>       <span class="c1"># Frequency</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">FORCE</span>           <span class="c1"># Force</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">PRESSURE</span>        <span class="c1"># Pressure</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">ENERGY</span>          <span class="c1"># Energy</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">POWER</span>           <span class="c1"># Power</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">ELECTRIC_CHARGE</span> <span class="c1"># Electric charge</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">ELECTRIC_POTENTIAL</span> <span class="c1"># Electric potential</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">CAPACITANCE</span>     <span class="c1"># Capacitance</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">RESISTANCE</span>      <span class="c1"># Resistance</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">CONDUCTANCE</span>     <span class="c1"># Conductance</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">MAGNETIC_FLUX</span>   <span class="c1"># Magnetic flux</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">MAGNETIC_FLUX_DENSITY</span> <span class="c1"># Magnetic flux density</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">INDUCTANCE</span>      <span class="c1"># Inductance</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">LUMINOUS_FLUX</span>   <span class="c1"># Luminous flux</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">ILLUMINANCE</span>      <span class="c1"># Illuminance</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">RADIOACTIVITY</span>    <span class="c1"># Radioactivity</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">ABSORBED_DOSE</span>    <span class="c1"># Absorbed dose</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">EQUIVALENT_DOSE</span>  <span class="c1"># Equivalent dose</span>
+<span class="n">Dimension</span><span class="o">.</span><span class="n">CATALYTIC_ACTIVITY</span> <span class="c1"># Catalytic activity</span>
+</pre></div>
+</div>
+</section>
+<section id="comprehensive-derived-units">
+<h3>Comprehensive Derived Units<a class="headerlink" href="#comprehensive-derived-units" title="Link to this heading">¶</a></h3>
+<section id="mechanical-units">
+<h4>Mechanical Units<a class="headerlink" href="#mechanical-units" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Speed and velocity</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">25.0</span><span class="p">,</span> <span class="s2">&quot;meter/second&quot;</span><span class="p">)</span>
+<span class="n">speed_kmh</span> <span class="o">=</span> <span class="n">speed</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kilometer/hour&quot;</span><span class="p">)</span>  <span class="c1"># ~90 km/h</span>
+
+<span class="c1"># Acceleration</span>
+<span class="n">acceleration</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">9.81</span><span class="p">,</span> <span class="s2">&quot;meter/second_squared&quot;</span><span class="p">)</span>  <span class="c1"># Gravity</span>
+
+<span class="c1"># Area</span>
+<span class="n">area</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">25.0</span><span class="p">,</span> <span class="s2">&quot;square_meter&quot;</span><span class="p">)</span>
+
+<span class="c1"># Volume</span>
+<span class="n">volume</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;cubic_meter&quot;</span><span class="p">)</span>
+<span class="n">volume_liters</span> <span class="o">=</span> <span class="n">volume</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;liter&quot;</span><span class="p">)</span>  <span class="c1"># 1000 liters</span>
+
+<span class="c1"># Pressure</span>
+<span class="n">pressure</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">101325.0</span><span class="p">,</span> <span class="s2">&quot;pascal&quot;</span><span class="p">)</span>
+<span class="n">pressure_atm</span> <span class="o">=</span> <span class="n">pressure</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;atmosphere&quot;</span><span class="p">)</span>  <span class="c1"># 1 atm</span>
+
+<span class="c1"># Energy</span>
+<span class="n">energy</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1000.0</span><span class="p">,</span> <span class="s2">&quot;joule&quot;</span><span class="p">)</span>
+<span class="n">energy_cal</span> <span class="o">=</span> <span class="n">energy</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;calorie&quot;</span><span class="p">)</span>  <span class="c1"># ~239 cal</span>
+
+<span class="c1"># Power</span>
+<span class="n">power</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;watt&quot;</span><span class="p">)</span>
+<span class="n">power_hp</span> <span class="o">=</span> <span class="n">power</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;horsepower&quot;</span><span class="p">)</span>  <span class="c1"># ~0.134 hp</span>
+</pre></div>
+</div>
+</section>
+<section id="electrical-units">
+<h4>Electrical Units<a class="headerlink" href="#electrical-units" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Voltage</span>
+<span class="n">voltage</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">230.0</span><span class="p">,</span> <span class="s2">&quot;volt&quot;</span><span class="p">)</span>
+<span class="n">voltage_mv</span> <span class="o">=</span> <span class="n">voltage</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;millivolt&quot;</span><span class="p">)</span>  <span class="c1"># 230000 mV</span>
+
+<span class="c1"># Current</span>
+<span class="n">current</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;ampere&quot;</span><span class="p">)</span>
+<span class="n">current_ma</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;milliampere&quot;</span><span class="p">)</span>  <span class="c1"># 10000 mA</span>
+
+<span class="c1"># Resistance</span>
+<span class="n">resistance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">470.0</span><span class="p">,</span> <span class="s2">&quot;ohm&quot;</span><span class="p">)</span>
+<span class="n">resistance_kohm</span> <span class="o">=</span> <span class="n">resistance</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kiloohm&quot;</span><span class="p">)</span>  <span class="c1"># 0.47 kΩ</span>
+
+<span class="c1"># Capacitance</span>
+<span class="n">capacitance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;microfarad&quot;</span><span class="p">)</span>
+<span class="n">capacitance_f</span> <span class="o">=</span> <span class="n">capacitance</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;farad&quot;</span><span class="p">)</span>  <span class="c1"># 0.0001 F</span>
+
+<span class="c1"># Inductance</span>
+<span class="n">inductance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;millihenry&quot;</span><span class="p">)</span>
+<span class="n">inductance_h</span> <span class="o">=</span> <span class="n">inductance</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;henry&quot;</span><span class="p">)</span>  <span class="c1"># 0.01 H</span>
+
+<span class="c1"># Frequency</span>
+<span class="n">frequency</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="s2">&quot;hertz&quot;</span><span class="p">)</span>
+<span class="n">frequency_khz</span> <span class="o">=</span> <span class="n">frequency</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kilohertz&quot;</span><span class="p">)</span>  <span class="c1"># 0.05 kHz</span>
+</pre></div>
+</div>
+</section>
+<section id="thermal-units">
+<h4>Thermal Units<a class="headerlink" href="#thermal-units" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Temperature</span>
+<span class="n">temp_c</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">25.0</span><span class="p">,</span> <span class="s2">&quot;celsius&quot;</span><span class="p">)</span>
+<span class="n">temp_f</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">77.0</span><span class="p">,</span> <span class="s2">&quot;fahrenheit&quot;</span><span class="p">)</span>
+<span class="n">temp_k</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">298.15</span><span class="p">,</span> <span class="s2">&quot;kelvin&quot;</span><span class="p">)</span>
+
+<span class="c1"># Specific heat</span>
+<span class="n">specific_heat</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">4186.0</span><span class="p">,</span> <span class="s2">&quot;joule/kilogram/kelvin&quot;</span><span class="p">)</span>  <span class="c1"># Water</span>
+
+<span class="c1"># Thermal conductivity</span>
+<span class="n">conductivity</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="s2">&quot;watt/meter/kelvin&quot;</span><span class="p">)</span>  <span class="c1"># Typical insulator</span>
+</pre></div>
+</div>
+</section>
+<section id="optical-units">
+<h4>Optical Units<a class="headerlink" href="#optical-units" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Luminous flux</span>
+<span class="n">luminous_flux</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1000.0</span><span class="p">,</span> <span class="s2">&quot;lumen&quot;</span><span class="p">)</span>
+
+<span class="c1"># Illuminance</span>
+<span class="n">illuminance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">500.0</span><span class="p">,</span> <span class="s2">&quot;lux&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="si-prefixes">
+<h3>SI Prefixes<a class="headerlink" href="#si-prefixes" title="Link to this heading">¶</a></h3>
+<p>PyQuantity supports the full range of SI prefixes from yocto (10^-24) to yotta (10^24):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Large prefixes</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;kilometer&quot;</span><span class="p">)</span>     <span class="c1"># 10^3 meters</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;megameter&quot;</span><span class="p">)</span>     <span class="c1"># 10^6 meters</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;gigameter&quot;</span><span class="p">)</span>     <span class="c1"># 10^9 meters</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;terameter&quot;</span><span class="p">)</span>     <span class="c1"># 10^12 meters</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;petameter&quot;</span><span class="p">)</span>     <span class="c1"># 10^15 meters</span>
+
+<span class="c1"># Small prefixes</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;millimeter&quot;</span><span class="p">)</span>    <span class="c1"># 10^-3 meters</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;micrometer&quot;</span><span class="p">)</span>    <span class="c1"># 10^-6 meters</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;nanometer&quot;</span><span class="p">)</span>     <span class="c1"># 10^-9 meters</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;picometer&quot;</span><span class="p">)</span>     <span class="c1"># 10^-12 meters</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;femtometer&quot;</span><span class="p">)</span>    <span class="c1"># 10^-15 meters</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;attometer&quot;</span><span class="p">)</span>     <span class="c1"># 10^-18 meters</span>
+
+<span class="c1"># Electrical prefixes</span>
+<span class="n">voltage</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;millivolt&quot;</span><span class="p">)</span>      <span class="c1"># 10^-3 volts</span>
+<span class="n">voltage</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;microvolt&quot;</span><span class="p">)</span>      <span class="c1"># 10^-6 volts</span>
+<span class="n">voltage</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;nanovolt&quot;</span><span class="p">)</span>       <span class="c1"># 10^-9 volts</span>
+
+<span class="n">current</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;microampere&quot;</span><span class="p">)</span>    <span class="c1"># 10^-6 amperes</span>
+<span class="n">current</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;nanoampere&quot;</span><span class="p">)</span>     <span class="c1"># 10^-9 amperes</span>
+
+<span class="n">resistance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;kiloohm&quot;</span><span class="p">)</span>      <span class="c1"># 10^3 ohms</span>
+<span class="n">resistance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;megaohm&quot;</span><span class="p">)</span>      <span class="c1"># 10^6 ohms</span>
+</pre></div>
+</div>
+</section>
+<section id="unit-conversion-examples">
+<h3>Unit Conversion Examples<a class="headerlink" href="#unit-conversion-examples" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Speed conversions</span>
+<span class="n">speed_mph</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="s2">&quot;mile/hour&quot;</span><span class="p">)</span>
+<span class="n">speed_mps</span> <span class="o">=</span> <span class="n">speed_mph</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;meter/second&quot;</span><span class="p">)</span>  <span class="c1"># ~26.82 m/s</span>
+<span class="n">speed_kmh</span> <span class="o">=</span> <span class="n">speed_mph</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kilometer/hour&quot;</span><span class="p">)</span>  <span class="c1"># ~96.56 km/h</span>
+
+<span class="c1"># Pressure conversions</span>
+<span class="n">pressure_psi</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">14.7</span><span class="p">,</span> <span class="s2">&quot;psi&quot;</span><span class="p">)</span>
+<span class="n">pressure_pa</span> <span class="o">=</span> <span class="n">pressure_psi</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;pascal&quot;</span><span class="p">)</span>  <span class="c1"># ~101325 Pa</span>
+<span class="n">pressure_bar</span> <span class="o">=</span> <span class="n">pressure_psi</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">)</span>    <span class="c1"># ~1.01325 bar</span>
+
+<span class="c1"># Volume conversions</span>
+<span class="n">volume_gal</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;gallon&quot;</span><span class="p">)</span>
+<span class="n">volume_l</span> <span class="o">=</span> <span class="n">volume_gal</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;liter&quot;</span><span class="p">)</span>      <span class="c1"># ~3.785 L</span>
+<span class="n">volume_ml</span> <span class="o">=</span> <span class="n">volume_gal</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;milliliter&quot;</span><span class="p">)</span>  <span class="c1"># ~3785 mL</span>
+
+<span class="c1"># Energy conversions</span>
+<span class="n">energy_kwh</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;kilowatt_hour&quot;</span><span class="p">)</span>
+<span class="n">energy_j</span> <span class="o">=</span> <span class="n">energy_kwh</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;joule&quot;</span><span class="p">)</span>      <span class="c1"># 3,600,000 J</span>
+<span class="n">energy_cal</span> <span class="o">=</span> <span class="n">energy_kwh</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kilocalorie&quot;</span><span class="p">)</span>  <span class="c1"># ~860 kcal</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="contextual-measurements">
+<h2>Contextual Measurements<a class="headerlink" href="#contextual-measurements" title="Link to this heading">¶</a></h2>
+<p>PyQuantity includes a database of real-world objects with standard measurements.</p>
+<section id="using-the-measurement-database">
+<h3>Using the Measurement Database<a class="headerlink" href="#using-the-measurement-database" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyquantity</span><span class="w"> </span><span class="kn">import</span> <span class="n">MeasurementDatabase</span><span class="p">,</span> <span class="n">get_measurement</span>
+
+<span class="c1"># Create database instance</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">MeasurementDatabase</span><span class="p">()</span>
+
+<span class="c1"># Get standard measurements</span>
+<span class="n">bath</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;normal bath&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Normal bath: </span><span class="si">{</span><span class="n">bath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 150.0 liter</span>
+
+<span class="n">cup</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;cup&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Standard cup: </span><span class="si">{</span><span class="n">cup</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 250.0 milliliter</span>
+
+<span class="c1"># Calculate how many cups in a bath</span>
+<span class="n">cups_in_bath</span> <span class="o">=</span> <span class="n">bath</span> <span class="o">/</span> <span class="n">cup</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cups in a bath: </span><span class="si">{</span><span class="n">cups_in_bath</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ~600.0</span>
+</pre></div>
+</div>
+</section>
+<section id="available-measurement-categories">
+<h3>Available Measurement Categories<a class="headerlink" href="#available-measurement-categories" title="Link to this heading">¶</a></h3>
+<section id="volume-measurements">
+<h4>Volume Measurements<a class="headerlink" href="#volume-measurements" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Small volumes</span>
+<span class="n">teaspoon</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;teaspoon&quot;</span><span class="p">)</span>        <span class="c1"># 5 mL</span>
+<span class="n">tablespoon</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;tablespoon&quot;</span><span class="p">)</span>    <span class="c1"># 15 mL</span>
+<span class="n">cup</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;cup&quot;</span><span class="p">)</span>                  <span class="c1"># 250 mL</span>
+<span class="n">glass</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;glass&quot;</span><span class="p">)</span>              <span class="c1"># 200 mL</span>
+
+<span class="c1"># Medium volumes</span>
+<span class="n">bottle</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;bottle&quot;</span><span class="p">)</span>          <span class="c1"># 500 mL</span>
+<span class="n">can</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;can&quot;</span><span class="p">)</span>                  <span class="c1"># 330 mL</span>
+<span class="n">jug</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;jug&quot;</span><span class="p">)</span>                  <span class="c1"># 1 L</span>
+<span class="n">bucket</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;bucket&quot;</span><span class="p">)</span>            <span class="c1"># 10 L</span>
+
+<span class="c1"># Large volumes</span>
+<span class="n">bathtub</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;bathtub&quot;</span><span class="p">)</span>          <span class="c1"># 150 L</span>
+<span class="n">normal_bath</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;normal bath&quot;</span><span class="p">)</span>    <span class="c1"># 150 L</span>
+<span class="n">swimming_pool</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;swimming pool&quot;</span><span class="p">)</span> <span class="c1"># 50,000 L</span>
+<span class="n">ocean</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;ocean&quot;</span><span class="p">)</span>              <span class="c1"># 1.332e21 L</span>
+</pre></div>
+</div>
+</section>
+<section id="mass-measurements">
+<h4>Mass Measurements<a class="headerlink" href="#mass-measurements" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grain_of_salt</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;grain of salt&quot;</span><span class="p">)</span>  <span class="c1"># 0.06 mg</span>
+<span class="n">paperclip</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;paperclip&quot;</span><span class="p">)</span>        <span class="c1"># 1 g</span>
+<span class="n">apple</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;apple&quot;</span><span class="p">)</span>                <span class="c1"># 150 g</span>
+<span class="n">loaf_of_bread</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;loaf of bread&quot;</span><span class="p">)</span> <span class="c1"># 500 g</span>
+<span class="n">bag_of_sugar</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;bag of sugar&quot;</span><span class="p">)</span>   <span class="c1"># 1 kg</span>
+
+<span class="n">average_person</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;average person&quot;</span><span class="p">)</span> <span class="c1"># 70 kg</span>
+<span class="n">car</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;car mass&quot;</span><span class="p">)</span>              <span class="c1"># 1500 kg</span>
+<span class="n">elephant</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;elephant&quot;</span><span class="p">)</span>          <span class="c1"># 5000 kg</span>
+<span class="n">blue_whale</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;blue whale&quot;</span><span class="p">)</span>      <span class="c1"># 150,000 kg</span>
+</pre></div>
+</div>
+</section>
+<section id="length-measurements">
+<h4>Length Measurements<a class="headerlink" href="#length-measurements" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grain_of_sand</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;grain of sand&quot;</span><span class="p">)</span>  <span class="c1"># 0.5 mm</span>
+<span class="n">credit_card</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;credit card&quot;</span><span class="p">)</span>    <span class="c1"># 85.6 mm</span>
+<span class="n">smartphone</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;smartphone&quot;</span><span class="p">)</span>      <span class="c1"># 150 mm</span>
+<span class="n">pizza</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;pizza&quot;</span><span class="p">)</span>                <span class="c1"># 30 cm</span>
+<span class="n">door</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;door&quot;</span><span class="p">)</span>                  <span class="c1"># 2 m</span>
+<span class="n">room</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;room&quot;</span><span class="p">)</span>                  <span class="c1"># 5 m</span>
+
+<span class="n">football_field</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;football field length&quot;</span><span class="p">)</span> <span class="c1"># 100 m</span>
+<span class="n">marathon</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;marathon&quot;</span><span class="p">)</span>         <span class="c1"># 42.195 km</span>
+<span class="n">mount_everest</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;mount everest&quot;</span><span class="p">)</span> <span class="c1"># 8848 m</span>
+</pre></div>
+</div>
+</section>
+<section id="speed-measurements">
+<h4>Speed Measurements<a class="headerlink" href="#speed-measurements" title="Link to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">snail</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;snail&quot;</span><span class="p">)</span>                  <span class="c1"># 0.05 m/s</span>
+<span class="n">walking</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;walking&quot;</span><span class="p">)</span>            <span class="c1"># 1.4 m/s</span>
+<span class="n">running</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;running&quot;</span><span class="p">)</span>            <span class="c1"># 5.0 m/s</span>
+<span class="n">cycling</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;cycling&quot;</span><span class="p">)</span>            <span class="c1"># 7.0 m/s</span>
+<span class="n">car</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;car speed&quot;</span><span class="p">)</span>             <span class="c1"># 25.0 m/s</span>
+
+<span class="n">high_speed_train</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;high speed train&quot;</span><span class="p">)</span> <span class="c1"># 83.0 m/s</span>
+<span class="n">airplane</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;airplane&quot;</span><span class="p">)</span>          <span class="c1"># 250.0 m/s</span>
+<span class="n">speed_of_sound</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;speed of sound&quot;</span><span class="p">)</span> <span class="c1"># 343.0 m/s</span>
+<span class="n">speed_of_light</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;speed of light&quot;</span><span class="p">)</span> <span class="c1"># 299,792,458 m/s</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="custom-measurements">
+<h3>Custom Measurements<a class="headerlink" href="#custom-measurements" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create custom database</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">MeasurementDatabase</span><span class="p">()</span>
+
+<span class="c1"># Add custom measurements</span>
+<span class="n">db</span><span class="o">.</span><span class="n">add_measurement</span><span class="p">(</span><span class="s2">&quot;my coffee mug&quot;</span><span class="p">,</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">350.0</span><span class="p">,</span> <span class="s2">&quot;milliliter&quot;</span><span class="p">))</span>
+<span class="n">db</span><span class="o">.</span><span class="n">add_measurement</span><span class="p">(</span><span class="s2">&quot;my commute&quot;</span><span class="p">,</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">15.0</span><span class="p">,</span> <span class="s2">&quot;kilometer&quot;</span><span class="p">))</span>
+<span class="n">db</span><span class="o">.</span><span class="n">add_measurement</span><span class="p">(</span><span class="s2">&quot;my workspace&quot;</span><span class="p">,</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;square_meter&quot;</span><span class="p">))</span>
+
+<span class="c1"># Retrieve custom measurements</span>
+<span class="n">mug</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;my coffee mug&quot;</span><span class="p">)</span>
+<span class="n">commute</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;my commute&quot;</span><span class="p">)</span>
+<span class="n">workspace</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;my workspace&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;My coffee mug: </span><span class="si">{</span><span class="n">mug</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;My commute distance: </span><span class="si">{</span><span class="n">commute</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;My workspace area: </span><span class="si">{</span><span class="n">workspace</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="searching-measurements">
+<h3>Searching Measurements<a class="headerlink" href="#searching-measurements" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Search for measurements containing specific terms</span>
+<span class="n">bath_results</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find_measurements</span><span class="p">(</span><span class="s2">&quot;bath&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Measurements containing &#39;bath&#39;:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">bath_results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">quantity</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Search for speed-related measurements</span>
+<span class="n">speed_results</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find_measurements</span><span class="p">(</span><span class="s2">&quot;speed&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Speed-related measurements:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">speed_results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">quantity</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="natural-language-parsing">
+<h2>Natural Language Parsing<a class="headerlink" href="#natural-language-parsing" title="Link to this heading">¶</a></h2>
+<p>PyQuantity can extract quantities and units from natural language text.</p>
+<section id="parsing-individual-quantities">
+<h3>Parsing Individual Quantities<a class="headerlink" href="#parsing-individual-quantities" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyquantity</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_quantity</span>
+
+<span class="c1"># Parse simple quantities</span>
+<span class="n">qty1</span> <span class="o">=</span> <span class="n">parse_quantity</span><span class="p">(</span><span class="s2">&quot;5 meters&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qty1</span><span class="p">)</span>  <span class="c1"># 5.0 meter</span>
+
+<span class="n">qty2</span> <span class="o">=</span> <span class="n">parse_quantity</span><span class="p">(</span><span class="s2">&quot;100 km/h&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qty2</span><span class="p">)</span>  <span class="c1"># 100.0 kilometer/hour</span>
+
+<span class="n">qty3</span> <span class="o">=</span> <span class="n">parse_quantity</span><span class="p">(</span><span class="s2">&quot;2.5 kilograms&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qty3</span><span class="p">)</span>  <span class="c1"># 2.5 kilogram</span>
+
+<span class="n">qty4</span> <span class="o">=</span> <span class="n">parse_quantity</span><span class="p">(</span><span class="s2">&quot;150 liters&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qty4</span><span class="p">)</span>  <span class="c1"># 150.0 liter</span>
+</pre></div>
+</div>
+</section>
+<section id="extracting-multiple-quantities">
+<h3>Extracting Multiple Quantities<a class="headerlink" href="#extracting-multiple-quantities" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyquantity</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_quantities</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;A car traveling at 120 km/h for 2.5 hours consumes 30 liters of fuel.&quot;</span>
+<span class="n">quantities</span> <span class="o">=</span> <span class="n">extract_quantities</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">quantities</span><span class="p">)</span><span class="si">}</span><span class="s2"> quantities:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">qty</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">quantities</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">qty</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="finding-units-in-text">
+<h3>Finding Units in Text<a class="headerlink" href="#finding-units-in-text" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyquantity</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_units_in_text</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;The pressure is 1013 hPa and temperature is 25°C with humidity at 60%.&quot;</span>
+<span class="n">units</span> <span class="o">=</span> <span class="n">find_units_in_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">units</span><span class="p">)</span><span class="si">}</span><span class="s2"> units:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">unit</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="contextual-object-recognition">
+<h3>Contextual Object Recognition<a class="headerlink" href="#contextual-object-recognition" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;I filled the bathtub and it took 15 minutes to fill.&quot;</span>
+<span class="c1"># The parser can recognize &quot;bathtub&quot; as a known object with standard volume</span>
+
+<span class="c1"># Find objects in text</span>
+<span class="n">objects_found</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">db</span><span class="o">.</span><span class="n">measurements</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">object_name</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="n">objects_found</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">object_name</span><span class="p">,</span> <span class="n">quantity</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Recognized objects:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">qty</span> <span class="ow">in</span> <span class="n">objects_found</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">qty</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-parsing-examples">
+<h3>Advanced Parsing Examples<a class="headerlink" href="#advanced-parsing-examples" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Complex units</span>
+<span class="n">complex_text</span> <span class="o">=</span> <span class="s2">&quot;The acceleration is 9.81 m/s² and pressure is 101.325 kPa&quot;</span>
+<span class="n">quantities</span> <span class="o">=</span> <span class="n">extract_quantities</span><span class="p">(</span><span class="n">complex_text</span><span class="p">)</span>
+
+<span class="c1"># Scientific notation</span>
+<span class="n">scientific_text</span> <span class="o">=</span> <span class="s2">&quot;The capacitance is 1e-6 F and resistance is 4.7e3 Ω&quot;</span>
+<span class="n">quantities</span> <span class="o">=</span> <span class="n">extract_quantities</span><span class="p">(</span><span class="n">scientific_text</span><span class="p">)</span>
+
+<span class="c1"># Mixed units</span>
+<span class="n">mixed_text</span> <span class="o">=</span> <span class="s2">&quot;Speed: 60 mph, Distance: 100 km, Time: 2.5 hours&quot;</span>
+<span class="n">quantities</span> <span class="o">=</span> <span class="n">extract_quantities</span><span class="p">(</span><span class="n">mixed_text</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="advanced-physics-calculations">
+<h2>Advanced Physics Calculations<a class="headerlink" href="#advanced-physics-calculations" title="Link to this heading">¶</a></h2>
+<section id="kinematics">
+<h3>Kinematics<a class="headerlink" href="#kinematics" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># distance = speed × time</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">25.0</span><span class="p">,</span> <span class="s2">&quot;meter/second&quot;</span><span class="p">)</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">)</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">speed</span> <span class="o">*</span> <span class="n">time</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distance: </span><span class="si">{</span><span class="n">distance</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 250.0 meter/second*second</span>
+
+<span class="c1"># acceleration = (final_velocity - initial_velocity) / time</span>
+<span class="n">initial_velocity</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;meter/second&quot;</span><span class="p">)</span>
+<span class="n">final_velocity</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;meter/second&quot;</span><span class="p">)</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">)</span>
+<span class="n">acceleration</span> <span class="o">=</span> <span class="p">(</span><span class="n">final_velocity</span> <span class="o">-</span> <span class="n">initial_velocity</span><span class="p">)</span> <span class="o">/</span> <span class="n">time</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Acceleration: </span><span class="si">{</span><span class="n">acceleration</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 2.0 meter/second/second</span>
+</pre></div>
+</div>
+</section>
+<section id="dynamics">
+<h3>Dynamics<a class="headerlink" href="#dynamics" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># force = mass × acceleration</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;kilogram&quot;</span><span class="p">)</span>
+<span class="n">acceleration</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">9.81</span><span class="p">,</span> <span class="s2">&quot;meter/second_squared&quot;</span><span class="p">)</span>
+<span class="n">force</span> <span class="o">=</span> <span class="n">mass</span> <span class="o">*</span> <span class="n">acceleration</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Force: </span><span class="si">{</span><span class="n">force</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 98.1 kilogram*meter/second_squared (newton)</span>
+
+<span class="c1"># power = force × velocity</span>
+<span class="n">velocity</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="s2">&quot;meter/second&quot;</span><span class="p">)</span>
+<span class="n">power</span> <span class="o">=</span> <span class="n">force</span> <span class="o">*</span> <span class="n">velocity</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Power: </span><span class="si">{</span><span class="n">power</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 490.5 kilogram*meter²/second³ (watt)</span>
+
+<span class="c1"># work = force × distance</span>
+<span class="n">work</span> <span class="o">=</span> <span class="n">force</span> <span class="o">*</span> <span class="n">distance</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Work: </span><span class="si">{</span><span class="n">work</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 2452.5 kilogram*meter²/second² (joule)</span>
+</pre></div>
+</div>
+</section>
+<section id="energy-calculations">
+<h3>Energy Calculations<a class="headerlink" href="#energy-calculations" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># kinetic energy = 0.5 × mass × velocity²</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1000.0</span><span class="p">,</span> <span class="s2">&quot;kilogram&quot;</span><span class="p">)</span>  <span class="c1"># 1000 kg car</span>
+<span class="n">velocity</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">25.0</span><span class="p">,</span> <span class="s2">&quot;meter/second&quot;</span><span class="p">)</span>  <span class="c1"># ~90 km/h</span>
+<span class="n">kinetic_energy</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">mass</span> <span class="o">*</span> <span class="p">(</span><span class="n">velocity</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kinetic energy: </span><span class="si">{</span><span class="n">kinetic_energy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 312500.0 kilogram*meter²/second²</span>
+
+<span class="c1"># Convert to kilowatt-hours</span>
+<span class="n">energy_kwh</span> <span class="o">=</span> <span class="n">kinetic_energy</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kilowatt_hour&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy in kWh: </span><span class="si">{</span><span class="n">energy_kwh</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ~0.0868 kWh</span>
+
+<span class="c1"># potential energy = mass × gravity × height</span>
+<span class="n">height</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;meter&quot;</span><span class="p">)</span>
+<span class="n">gravity</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">9.81</span><span class="p">,</span> <span class="s2">&quot;meter/second_squared&quot;</span><span class="p">)</span>
+<span class="n">potential_energy</span> <span class="o">=</span> <span class="n">mass</span> <span class="o">*</span> <span class="n">gravity</span> <span class="o">*</span> <span class="n">height</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Potential energy: </span><span class="si">{</span><span class="n">potential_energy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 98100.0 kilogram*meter²/second²</span>
+</pre></div>
+</div>
+</section>
+<section id="electrical-engineering">
+<h3>Electrical Engineering<a class="headerlink" href="#electrical-engineering" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ohm&#39;s Law: V = I × R</span>
+<span class="n">current</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="s2">&quot;ampere&quot;</span><span class="p">)</span>
+<span class="n">resistance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="s2">&quot;ohm&quot;</span><span class="p">)</span>
+<span class="n">voltage</span> <span class="o">=</span> <span class="n">current</span> <span class="o">*</span> <span class="n">resistance</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Voltage: </span><span class="si">{</span><span class="n">voltage</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 100.0 ampere*ohm (volt)</span>
+
+<span class="c1"># Power: P = V × I</span>
+<span class="n">power</span> <span class="o">=</span> <span class="n">voltage</span> <span class="o">*</span> <span class="n">current</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Power: </span><span class="si">{</span><span class="n">power</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 200.0 ampere*ohm*ampere (watt)</span>
+
+<span class="c1"># Energy: E = P × t</span>
+<span class="n">energy</span> <span class="o">=</span> <span class="n">power</span> <span class="o">*</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy: </span><span class="si">{</span><span class="n">energy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 2000.0 ampere*ohm*ampere*second (joule)</span>
+
+<span class="c1"># RC time constant: τ = R × C</span>
+<span class="n">resistance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1000.0</span><span class="p">,</span> <span class="s2">&quot;ohm&quot;</span><span class="p">)</span>
+<span class="n">capacitance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;microfarad&quot;</span><span class="p">)</span>
+<span class="n">time_constant</span> <span class="o">=</span> <span class="n">resistance</span> <span class="o">*</span> <span class="n">capacitance</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time constant: </span><span class="si">{</span><span class="n">time_constant</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 0.1 ohm*farad (second)</span>
+</pre></div>
+</div>
+</section>
+<section id="thermodynamics">
+<h3>Thermodynamics<a class="headerlink" href="#thermodynamics" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Heat transfer: Q = m × c × ΔT</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;kilogram&quot;</span><span class="p">)</span>  <span class="c1"># 1 kg water</span>
+<span class="n">specific_heat</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">4186.0</span><span class="p">,</span> <span class="s2">&quot;joule/kilogram/kelvin&quot;</span><span class="p">)</span>
+<span class="n">temp_change</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;kelvin&quot;</span><span class="p">)</span>
+<span class="n">heat_energy</span> <span class="o">=</span> <span class="n">mass</span> <span class="o">*</span> <span class="n">specific_heat</span> <span class="o">*</span> <span class="n">temp_change</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Heat energy: </span><span class="si">{</span><span class="n">heat_energy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 41860.0 joule</span>
+
+<span class="c1"># Heat transfer rate: Q/t</span>
+<span class="n">heat_power</span> <span class="o">=</span> <span class="n">heat_energy</span> <span class="o">/</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Heat power: </span><span class="si">{</span><span class="n">heat_power</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ~697.67 watt</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="practical-applications">
+<h2>Practical Applications<a class="headerlink" href="#practical-applications" title="Link to this heading">¶</a></h2>
+<section id="cooking-and-recipes">
+<h3>Cooking and Recipes<a class="headerlink" href="#cooking-and-recipes" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert recipe measurements</span>
+<span class="n">flour_cups</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="s2">&quot;cup&quot;</span><span class="p">)</span>
+<span class="n">flour_ml</span> <span class="o">=</span> <span class="n">flour_cups</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;milliliter&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;2.5 cups of flour = </span><span class="si">{</span><span class="n">flour_ml</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 625.0 milliliter</span>
+
+<span class="c1"># How many tablespoons in a cup?</span>
+<span class="n">cup</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;cup&quot;</span><span class="p">)</span>
+<span class="n">tablespoon</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;tablespoon&quot;</span><span class="p">)</span>
+<span class="n">tbsp_per_cup</span> <span class="o">=</span> <span class="n">cup</span> <span class="o">/</span> <span class="n">tablespoon</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tablespoons per cup: </span><span class="si">{</span><span class="n">tbsp_per_cup</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 16.666...</span>
+
+<span class="c1"># Calculate total recipe volume</span>
+<span class="n">sugar</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;cup&quot;</span><span class="p">)</span>
+<span class="n">flour</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="s2">&quot;cup&quot;</span><span class="p">)</span>
+<span class="n">butter</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;cup&quot;</span><span class="p">)</span>
+<span class="n">total_volume</span> <span class="o">=</span> <span class="n">sugar</span> <span class="o">+</span> <span class="n">flour</span> <span class="o">+</span> <span class="n">butter</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total volume: </span><span class="si">{</span><span class="n">total_volume</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 4.0 cup</span>
+</pre></div>
+</div>
+</section>
+<section id="travel-and-navigation">
+<h3>Travel and Navigation<a class="headerlink" href="#travel-and-navigation" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert speed limits</span>
+<span class="n">speed_limit_mph</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">65.0</span><span class="p">,</span> <span class="s2">&quot;mile/hour&quot;</span><span class="p">)</span>
+<span class="n">speed_limit_kmh</span> <span class="o">=</span> <span class="n">speed_limit_mph</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kilometer/hour&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;65 mph = </span><span class="si">{</span><span class="n">speed_limit_kmh</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ~104.6 km/h</span>
+
+<span class="c1"># Calculate travel time</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">300.0</span><span class="p">,</span> <span class="s2">&quot;kilometer&quot;</span><span class="p">)</span>
+<span class="n">average_speed</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;kilometer/hour&quot;</span><span class="p">)</span>
+<span class="n">travel_time</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">/</span> <span class="n">average_speed</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Travel time: </span><span class="si">{</span><span class="n">travel_time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 3.0 hour</span>
+
+<span class="c1"># Calculate fuel consumption</span>
+<span class="n">fuel_efficiency</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">15.0</span><span class="p">,</span> <span class="s2">&quot;kilometer/liter&quot;</span><span class="p">)</span>  <span class="c1"># 15 km/L</span>
+<span class="n">total_fuel</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">/</span> <span class="n">fuel_efficiency</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fuel needed: </span><span class="si">{</span><span class="n">total_fuel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 20.0 liter</span>
+</pre></div>
+</div>
+</section>
+<section id="home-energy-usage">
+<h3>Home Energy Usage<a class="headerlink" href="#home-energy-usage" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate appliance energy consumption</span>
+<span class="n">light_bulb</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;light bulb&quot;</span><span class="p">)</span>  <span class="c1"># 60 W</span>
+<span class="n">hours_per_day</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">)</span>
+<span class="n">days_per_year</span> <span class="o">=</span> <span class="mi">365</span>
+<span class="n">daily_energy</span> <span class="o">=</span> <span class="n">light_bulb</span> <span class="o">*</span> <span class="n">hours_per_day</span>
+<span class="n">annual_energy</span> <span class="o">=</span> <span class="n">daily_energy</span> <span class="o">*</span> <span class="n">days_per_year</span>
+<span class="n">annual_energy_kwh</span> <span class="o">=</span> <span class="n">annual_energy</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kilowatt_hour&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Annual energy for one light bulb: </span><span class="si">{</span><span class="n">annual_energy_kwh</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ~131.4 kWh</span>
+
+<span class="c1"># Calculate cost</span>
+<span class="n">energy_price</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="s2">&quot;dollar/kilowatt_hour&quot;</span><span class="p">)</span>
+<span class="n">annual_cost</span> <span class="o">=</span> <span class="n">annual_energy_kwh</span> <span class="o">*</span> <span class="n">energy_price</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Annual cost: </span><span class="si">{</span><span class="n">annual_cost</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ~19.71 dollar</span>
+</pre></div>
+</div>
+</section>
+<section id="fitness-and-health">
+<h3>Fitness and Health<a class="headerlink" href="#fitness-and-health" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate calorie expenditure</span>
+<span class="n">running_speed</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;running&quot;</span><span class="p">)</span>  <span class="c1"># ~5 m/s</span>
+<span class="c1"># Approximate MET calculation</span>
+<span class="n">met_value</span> <span class="o">=</span> <span class="mf">8.0</span>  <span class="c1"># Running MET value</span>
+<span class="n">person_mass</span> <span class="o">=</span> <span class="n">get_measurement</span><span class="p">(</span><span class="s2">&quot;average person&quot;</span><span class="p">)</span>  <span class="c1"># 70 kg</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">)</span>
+<span class="n">calories_burned</span> <span class="o">=</span> <span class="p">(</span><span class="n">met_value</span> <span class="o">*</span> <span class="n">person_mass</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="n">time</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">*</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;kilocalorie&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calories burned running for 1 hour: </span><span class="si">{</span><span class="n">calories_burned</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ~560 kcal</span>
+
+<span class="c1"># Calculate running distance</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="n">running_speed</span> <span class="o">*</span> <span class="n">time</span>
+<span class="n">distance_km</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kilometer&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distance run: </span><span class="si">{</span><span class="n">distance_km</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ~18 km</span>
+</pre></div>
+</div>
+</section>
+<section id="engineering-applications">
+<h3>Engineering Applications<a class="headerlink" href="#engineering-applications" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Structural engineering - stress calculation</span>
+<span class="n">force</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10000.0</span><span class="p">,</span> <span class="s2">&quot;newton&quot;</span><span class="p">)</span>
+<span class="n">area</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;square_meter&quot;</span><span class="p">)</span>
+<span class="n">stress</span> <span class="o">=</span> <span class="n">force</span> <span class="o">/</span> <span class="n">area</span>
+<span class="n">stress_pa</span> <span class="o">=</span> <span class="n">stress</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;pascal&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stress: </span><span class="si">{</span><span class="n">stress_pa</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 100000.0 pascal</span>
+
+<span class="c1"># Fluid dynamics - flow rate</span>
+<span class="n">volume</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;liter&quot;</span><span class="p">)</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;second&quot;</span><span class="p">)</span>
+<span class="n">flow_rate</span> <span class="o">=</span> <span class="n">volume</span> <span class="o">/</span> <span class="n">time</span>
+<span class="n">flow_rate_lps</span> <span class="o">=</span> <span class="n">flow_rate</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;liter/second&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Flow rate: </span><span class="si">{</span><span class="n">flow_rate_lps</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 10.0 liter/second</span>
+
+<span class="c1"># Electrical engineering - circuit power</span>
+<span class="n">voltage</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">230.0</span><span class="p">,</span> <span class="s2">&quot;volt&quot;</span><span class="p">)</span>
+<span class="n">current</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="s2">&quot;ampere&quot;</span><span class="p">)</span>
+<span class="n">power</span> <span class="o">=</span> <span class="n">voltage</span> <span class="o">*</span> <span class="n">current</span>
+<span class="n">power_kw</span> <span class="o">=</span> <span class="n">power</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;kilowatt&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Circuit power: </span><span class="si">{</span><span class="n">power_kw</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># 1.15 kilowatt</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Use Standard Units</strong>: Prefer base units (meter, kilogram, second) for calculations</p></li>
+<li><p><strong>Convert Early</strong>: Convert to desired units before complex calculations</p></li>
+<li><p><strong>Handle Exceptions</strong>: Always catch ValueError for invalid operations</p></li>
+<li><p><strong>Use Context</strong>: Provide context in text for better parsing accuracy</p></li>
+<li><p><strong>Check Dimensions</strong>: Verify dimensional compatibility before operations</p></li>
+<li><p><strong>Leverage Contextual Data</strong>: Use the measurement database for real-world comparisons</p></li>
+<li><p><strong>Parse Strategically</strong>: Use natural language parsing for user input, direct Quantity creation for code</p></li>
+</ol>
+</section>
+<section id="performance-considerations">
+<h2>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Quantity creation is fast and lightweight</p></li>
+<li><p>Unit conversion involves dimensional analysis which is O(n) where n is number of dimensions</p></li>
+<li><p>Parsing performance depends on text length and quantity density</p></li>
+<li><p>For bulk operations, consider caching Quantity objects</p></li>
+<li><p>The measurement database uses dictionary lookups for O(1) access</p></li>
+</ul>
+</section>
+<section id="development-and-release-process">
+<h2>Development and Release Process<a class="headerlink" href="#development-and-release-process" title="Link to this heading">¶</a></h2>
+<section id="creating-releases">
+<h3>Creating Releases<a class="headerlink" href="#creating-releases" title="Link to this heading">¶</a></h3>
+<p>PyQuantity uses GitHub Releases to distribute pre-built wheel files. Here’s how to create a new release:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Update the version in pyproject.toml</span>
+<span class="c1"># 2. Commit your changes</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Prepare release v1.0.0&quot;</span>
+
+<span class="c1"># 3. Create an annotated tag</span>
+git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.0.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v1.0.0&quot;</span>
+
+<span class="c1"># 4. Push the tag to trigger the release workflow</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.0.0
+</pre></div>
+</div>
+<p>The GitHub Actions release workflow will automatically:</p>
+<ul class="simple">
+<li><p>Build the source distribution and wheel files</p></li>
+<li><p>Create a GitHub Release with the tag name</p></li>
+<li><p>Upload the wheel and source files as release assets</p></li>
+</ul>
+</section>
+<section id="accessing-release-artifacts">
+<h3>Accessing Release Artifacts<a class="headerlink" href="#accessing-release-artifacts" title="Link to this heading">¶</a></h3>
+<p><strong>From GitHub Releases:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download from the releases page</span>
+wget<span class="w"> </span>https://github.com/your-username/pyquantity/releases/download/v1.0.0/pyquantity-1.0.0-py3-none-any.whl
+pip<span class="w"> </span>install<span class="w"> </span>pyquantity-1.0.0-py3-none-any.whl
+</pre></div>
+</div>
+<p><strong>From CI Artifacts (for development builds):</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the latest CI artifact</span>
+<span class="c1"># Go to: https://github.com/your-username/pyquantity/actions</span>
+<span class="c1"># Download &quot;python-package-distributions&quot; artifact from the latest successful run</span>
+unzip<span class="w"> </span>python-package-distributions.zip
+pip<span class="w"> </span>install<span class="w"> </span>*.whl
+</pre></div>
+</div>
+</section>
+</section>
+<section id="future-enhancements">
+<h2>Future Enhancements<a class="headerlink" href="#future-enhancements" title="Link to this heading">¶</a></h2>
+<p>The following features are planned for future releases:</p>
+<ol class="arabic simple">
+<li><p><strong>Temperature Unit Conversions</strong>: Full support for Celsius, Fahrenheit, Kelvin conversions</p></li>
+<li><p><strong>Currency Support</strong>: Integration with exchange rate APIs</p></li>
+<li><p><strong>Custom Unit Systems</strong>: User-defined unit systems and conversions</p></li>
+<li><p><strong>Enhanced NLP</strong>: More sophisticated natural language understanding</p></li>
+<li><p><strong>Unit Inference</strong>: Automatic unit detection from context</p></li>
+<li><p><strong>Measurement Learning</strong>: System that learns new object measurements from usage</p></li>
+<li><p><strong>Contextual Calculations</strong>: Automatic calculation of derived quantities from text</p></li>
+<li><p><strong>Visualization</strong>: Integration with plotting libraries for quantity visualization</p></li>
+</ol>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, pyquantity Developers
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Advanced Features Guide</a><ul>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li><a class="reference internal" href="#enhanced-unit-systems">Enhanced Unit Systems</a><ul>
+<li><a class="reference internal" href="#expanded-base-dimensions">Expanded Base Dimensions</a></li>
+<li><a class="reference internal" href="#comprehensive-derived-units">Comprehensive Derived Units</a><ul>
+<li><a class="reference internal" href="#mechanical-units">Mechanical Units</a></li>
+<li><a class="reference internal" href="#electrical-units">Electrical Units</a></li>
+<li><a class="reference internal" href="#thermal-units">Thermal Units</a></li>
+<li><a class="reference internal" href="#optical-units">Optical Units</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#si-prefixes">SI Prefixes</a></li>
+<li><a class="reference internal" href="#unit-conversion-examples">Unit Conversion Examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contextual-measurements">Contextual Measurements</a><ul>
+<li><a class="reference internal" href="#using-the-measurement-database">Using the Measurement Database</a></li>
+<li><a class="reference internal" href="#available-measurement-categories">Available Measurement Categories</a><ul>
+<li><a class="reference internal" href="#volume-measurements">Volume Measurements</a></li>
+<li><a class="reference internal" href="#mass-measurements">Mass Measurements</a></li>
+<li><a class="reference internal" href="#length-measurements">Length Measurements</a></li>
+<li><a class="reference internal" href="#speed-measurements">Speed Measurements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#custom-measurements">Custom Measurements</a></li>
+<li><a class="reference internal" href="#searching-measurements">Searching Measurements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#natural-language-parsing">Natural Language Parsing</a><ul>
+<li><a class="reference internal" href="#parsing-individual-quantities">Parsing Individual Quantities</a></li>
+<li><a class="reference internal" href="#extracting-multiple-quantities">Extracting Multiple Quantities</a></li>
+<li><a class="reference internal" href="#finding-units-in-text">Finding Units in Text</a></li>
+<li><a class="reference internal" href="#contextual-object-recognition">Contextual Object Recognition</a></li>
+<li><a class="reference internal" href="#advanced-parsing-examples">Advanced Parsing Examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced-physics-calculations">Advanced Physics Calculations</a><ul>
+<li><a class="reference internal" href="#kinematics">Kinematics</a></li>
+<li><a class="reference internal" href="#dynamics">Dynamics</a></li>
+<li><a class="reference internal" href="#energy-calculations">Energy Calculations</a></li>
+<li><a class="reference internal" href="#electrical-engineering">Electrical Engineering</a></li>
+<li><a class="reference internal" href="#thermodynamics">Thermodynamics</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#practical-applications">Practical Applications</a><ul>
+<li><a class="reference internal" href="#cooking-and-recipes">Cooking and Recipes</a></li>
+<li><a class="reference internal" href="#travel-and-navigation">Travel and Navigation</a></li>
+<li><a class="reference internal" href="#home-energy-usage">Home Energy Usage</a></li>
+<li><a class="reference internal" href="#fitness-and-health">Fitness and Health</a></li>
+<li><a class="reference internal" href="#engineering-applications">Engineering Applications</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#best-practices">Best Practices</a></li>
+<li><a class="reference internal" href="#performance-considerations">Performance Considerations</a></li>
+<li><a class="reference internal" href="#development-and-release-process">Development and Release Process</a><ul>
+<li><a class="reference internal" href="#creating-releases">Creating Releases</a></li>
+<li><a class="reference internal" href="#accessing-release-artifacts">Accessing Release Artifacts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#future-enhancements">Future Enhancements</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

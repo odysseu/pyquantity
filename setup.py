@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+"""
+Setup script for PyQuantity package.
+
+This setup.py file is provided for backward compatibility and to support
+certain build tools that still expect it. The primary configuration is
+in pyproject.toml following PEP 621.
+"""
+
+from setuptools import setup
+
+# Read the long description from README.md
+with open("README.md", "r", encoding="utf-8") as f:
+    long_description = f.read()
+
+setup(
+    # Basic package information (also defined in pyproject.toml for PEP 621)
+    name="pyquantity",
+    version="0.1.0",
+    description="A modern Python package for quantity calculations",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    author="Odysseu",
+    author_email="uboucherie1@gmail.com",
+    url="https://github.com/odysseu/pyquantity",
+    
+    # Package structure
+    package_dir={"": "src"},
+    packages=["pyquantity"],
+    python_requires=">=3.8",
+    
+    # Classifiers
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+    ],
+    
+    # Project URLs
+    project_urls={
+        "Homepage": "https://github.com/odysseu/pyquantity",
+        "Documentation": "https://github.com/odysseu/pyquantity#readme",
+        "Repository": "https://github.com/odysseu/pyquantity.git",
+        "Issues": "https://github.com/odysseu/pyquantity/issues",
+    },
+)
