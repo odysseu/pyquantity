@@ -19,7 +19,7 @@ class MeasurementDatabase:
     measurements (e.g., "normal bath" = 150 liters, "standard cup" = 250 ml).
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         # Initialize with standard measurements
         self.measurements = {
             # Volume measurements
@@ -190,7 +190,7 @@ class UnitParser:
     and convert them to Quantity objects.
     """
 
-    def __init__(self, measurement_db: MeasurementDatabase | None = None):
+    def __init__(self, measurement_db: MeasurementDatabase | None = None) -> None:
         self.measurement_db = measurement_db or MeasurementDatabase()
 
         # Common unit patterns
@@ -395,7 +395,7 @@ class UnitParser:
         text_lower = text.lower()
 
         # Check for known units from our database
-        all_units = set()
+        all_units: set[str] = set()
         all_units.update(UnitSystem.BASE_UNITS.keys())
         all_units.update(UnitSystem.DERIVED_UNITS.keys())
 

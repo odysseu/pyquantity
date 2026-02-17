@@ -60,7 +60,7 @@ class UnitSystem:
     """Unit system with dimensional analysis and conversion factors."""
 
     # Base units and their dimensions
-    BASE_UNITS = {
+    BASE_UNITS: dict[str, dict[Dimension, int]] = {
         "meter": {Dimension.LENGTH: 1},
         "kilogram": {Dimension.MASS: 1},
         "gram": {Dimension.MASS: 1},  # Common alternative
@@ -95,7 +95,7 @@ class UnitSystem:
     }
 
     # Derived units
-    DERIVED_UNITS = {
+    DERIVED_UNITS: dict[str, dict[str, dict[Dimension, int] | str]] = {
         # Basic SI derived units
         "newton": {"base": "kilogram*meter/second^2", "dimensions": {Dimension.LENGTH: 1, Dimension.MASS: 1, Dimension.TIME: -2}},
         "pascal": {"base": "newton/meter^2", "dimensions": {Dimension.LENGTH: -1, Dimension.MASS: 1, Dimension.TIME: -2}},
@@ -436,7 +436,7 @@ class UnitSystem:
 
         # Check derived units
         if unit in cls.DERIVED_UNITS:
-            return cls.DERIVED_UNITS[unit]["dimensions"].copy()
+            return cls.DERIVED_UNITS[unit]["dimensions"].copy()  # type: ignore[union-attr]
 
         # Handle units with _squared, _cubed suffixes
         # These should only apply to the last unit in a compound unit
@@ -520,7 +520,7 @@ class UnitSystem:
         if "*" in unit or "/" in unit:
             # This is a simplified parser - would need more robust parsing for production
             parts = re.split(r"([*/])", unit)
-            dimensions = {}
+            dimensions: dict[Dimension, int] = {}
             i = 0
             while i < len(parts):
                 part = parts[i].strip()
@@ -879,7 +879,7 @@ class Quantity:
         (e.g., adding meters to seconds) will raise ValueError.
     """
 
-    def __init__(self, value: float, unit: str):
+    def __init__(self, value: float, unit: str) -> None:
         self.value = float(value)
         self.unit = str(unit).lower()
         self._dimensions = UnitSystem.get_dimensions(self.unit)

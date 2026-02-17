@@ -19,7 +19,7 @@ from pyquantity import (
 )
 
 
-def demonstrate_expanded_units():
+def demonstrate_expanded_units() -> None:
     """Demonstrate the expanded unit systems and derived units."""
     print("=== Expanded Unit Systems ===")
 
@@ -117,7 +117,7 @@ def demonstrate_expanded_units():
     # as they involve offset calculations, not just scaling
 
 
-def demonstrate_contextual_measurements():
+def demonstrate_contextual_measurements() -> None:
     """Demonstrate contextual measurements and real-world objects."""
     print("\n=== Contextual Measurements ===")
 
@@ -172,7 +172,7 @@ def demonstrate_contextual_measurements():
         print(f"  {name}: {qty}")
 
 
-def demonstrate_natural_language_parsing():
+def demonstrate_natural_language_parsing() -> None:
     """Demonstrate natural language parsing capabilities."""
     print("\n=== Natural Language Parsing ===")
 
@@ -230,7 +230,7 @@ def demonstrate_natural_language_parsing():
         print(f"  {name}: {qty}")
 
 
-def demonstrate_advanced_calculations():
+def demonstrate_advanced_calculations() -> None:
     """Demonstrate advanced calculations with the new units."""
     print("\n=== Advanced Calculations ===")
 
@@ -294,7 +294,7 @@ def demonstrate_advanced_calculations():
     print(f"Energy = {power} × {time_h} = {energy}")
 
 
-def demonstrate_practical_applications():
+def demonstrate_practical_applications() -> None:
     """Demonstrate practical real-world applications."""
     print("\n=== Practical Applications ===")
 

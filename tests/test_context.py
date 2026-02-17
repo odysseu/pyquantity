@@ -12,7 +12,7 @@ from pyquantity.context import (
 from pyquantity.core import Quantity
 
 
-def test_measurement_database():
+def test_measurement_database() -> None:
     """Test the MeasurementDatabase functionality."""
     db = MeasurementDatabase()
 
@@ -46,7 +46,7 @@ def test_measurement_database():
     assert bath_lower.value == 150.0
 
 
-def test_measurement_search():
+def test_measurement_search() -> None:
     """Test the measurement search functionality."""
     db = MeasurementDatabase()
 
@@ -67,7 +67,7 @@ def test_measurement_search():
     assert len(unknown_results) == 0
 
 
-def test_unit_parser_basic():
+def test_unit_parser_basic() -> None:
     """Test basic unit parsing functionality."""
     parser = UnitParser()
 
@@ -98,7 +98,7 @@ def test_unit_parser_basic():
     assert qty5 is None
 
 
-def test_parse_quantity_function():
+def test_parse_quantity_function() -> None:
     """Test the convenience parse_quantity function."""
     # Test valid quantities
     qty1 = parse_quantity("10 meters")
@@ -114,7 +114,7 @@ def test_parse_quantity_function():
     assert qty3 is None
 
 
-def test_extract_quantities():
+def test_extract_quantities() -> None:
     """Test extracting multiple quantities from text."""
     text = "A car traveling at 120 km/h for 2.5 hours consumes 30 liters of fuel."
     quantities = extract_quantities(text)
@@ -139,7 +139,7 @@ def test_extract_quantities():
     assert volume_found
 
 
-def test_find_units_in_text():
+def test_find_units_in_text() -> None:
     """Test finding unit references in text."""
     text = "The pressure is 1013 hPa and temperature is 25°C with humidity at 60%."
     units = find_units_in_text(text)
@@ -155,7 +155,7 @@ def test_find_units_in_text():
     assert found_celsius
 
 
-def test_contextual_object_recognition():
+def test_contextual_object_recognition() -> None:
     """Test recognition of real-world objects in text."""
     db = MeasurementDatabase()
 
@@ -181,7 +181,7 @@ def test_contextual_object_recognition():
     assert bathtub_found
 
 
-def test_complex_parsing_scenarios():
+def test_complex_parsing_scenarios() -> None:
     """Test complex parsing scenarios."""
     # Test with multiple units in one phrase
     text = "5 meters per second squared"
@@ -207,7 +207,7 @@ def test_complex_parsing_scenarios():
     assert "watt" in qty3.unit.lower()
 
 
-def test_measurement_calculations():
+def test_measurement_calculations() -> None:
     """Test calculations using contextual measurements."""
     db = MeasurementDatabase()
 
@@ -236,7 +236,7 @@ def test_measurement_calculations():
     assert ratio.value < 30
 
 
-def test_unit_parser_with_custom_db():
+def test_unit_parser_with_custom_db() -> None:
     """Test UnitParser with custom measurement database."""
     # Create custom database
     custom_db = MeasurementDatabase()
@@ -258,7 +258,7 @@ def test_unit_parser_with_custom_db():
     assert qty2.unit == "meters"
 
 
-def test_edge_cases():
+def test_edge_cases() -> None:
     """Test edge cases and error handling."""
     # Test empty string
     qty1 = parse_quantity("")

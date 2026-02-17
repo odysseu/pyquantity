@@ -8,7 +8,7 @@ from pyquantity.core import Quantity
 from pyquantity.parser import QuantityParser, parse_quantities
 
 
-def test_basic_parsing():
+def test_basic_parsing() -> None:
     """Test basic quantity extraction from text."""
     parser = QuantityParser()
 
@@ -33,7 +33,7 @@ def test_basic_parsing():
     assert isinstance(current['quantity'], Quantity)
 
 
-def test_json_output():
+def test_json_output() -> None:
     """Test JSON output format."""
     text = "The voltage is 230 V and the current is 10 A."
     json_result = parse_quantities(text, format='json')
@@ -48,7 +48,7 @@ def test_json_output():
     assert data[0]['unit'] == 'volt'
 
 
-def test_list_output():
+def test_list_output() -> None:
     """Test list output format."""
     text = "The voltage is 230 V and the current is 10 A."
     list_result = parse_quantities(text, format='list')
@@ -59,7 +59,7 @@ def test_list_output():
     assert list_result[0]['unit'] == 'volt'
 
 
-def test_objects_output():
+def test_objects_output() -> None:
     """Test objects output format."""
     text = "The voltage is 230 V and the current is 10 A."
     objects_result = parse_quantities(text, format='objects')
@@ -71,7 +71,7 @@ def test_objects_output():
     assert isinstance(objects_result[0]['quantity'], Quantity)
 
 
-def test_complex_sentence():
+def test_complex_sentence() -> None:
     """Test parsing of a more complex sentence."""
     text = "The circuit has 230V voltage, 10A current, 50Hz frequency, and 100Ω resistance."
     quantities = parse_quantities(text, format='list')
@@ -86,7 +86,7 @@ def test_complex_sentence():
     assert 'ohm' in units
 
 
-def test_unit_normalization():
+def test_unit_normalization() -> None:
     """Test unit normalization."""
     parser = QuantityParser()
 
@@ -107,7 +107,7 @@ def test_unit_normalization():
         assert q['unit'] == expected_unit
 
 
-def test_context_detection():
+def test_context_detection() -> None:
     """Test context-based object type detection."""
     parser = QuantityParser()
 
@@ -127,7 +127,7 @@ def test_context_detection():
     assert quantities3[0]['object'] == 'power'
 
 
-def test_scientific_notation():
+def test_scientific_notation() -> None:
     """Test parsing of scientific notation."""
     text = "The capacitance is 1e-6 F and resistance is 4.7e3 Ω."
     quantities = parse_quantities(text, format='list')
@@ -139,7 +139,7 @@ def test_scientific_notation():
     assert quantities[1]['unit'] == 'ohm'
 
 
-def test_invalid_quantities():
+def test_invalid_quantities() -> None:
     """Test that invalid quantities are skipped."""
     text = "The voltage is 230 V, but the color is blue, and temperature is hot."
     quantities = parse_quantities(text, format='list')
@@ -150,7 +150,7 @@ def test_invalid_quantities():
     assert quantities[0]['unit'] == 'volt'
 
 
-def test_multiple_formats():
+def test_multiple_formats() -> None:
     """Test that the convenience function works with different formats."""
     text = "230 V, 10 A"
 
@@ -173,7 +173,7 @@ def test_multiple_formats():
     assert isinstance(objects_result[0]['quantity'], Quantity)
 
 
-def test_error_handling():
+def test_error_handling() -> None:
     """Test error handling for invalid format."""
     with pytest.raises(ValueError):
         parse_quantities("test", format="invalid")

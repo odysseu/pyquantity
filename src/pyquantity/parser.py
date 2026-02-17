@@ -100,7 +100,7 @@ class QuantityParser:
         'P': 'peta', 'E': 'exa', 'Z': 'zetta', 'Y': 'yotta'
     }
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.quantity_pattern = self._build_quantity_pattern()
 
     def _build_quantity_pattern(self) -> re.Pattern:

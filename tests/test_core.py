@@ -7,21 +7,21 @@ import pytest
 from pyquantity.core import Dimension, Quantity, UnitSystem
 
 
-def test_quantity_creation():
+def test_quantity_creation() -> None:
     """Test that Quantity objects can be created correctly."""
     q = Quantity(5.0, "meter")
     assert q.value == 5.0
     assert q.unit == "meter"
 
 
-def test_quantity_repr():
+def test_quantity_repr() -> None:
     """Test the string representation of Quantity objects."""
     q = Quantity(5.0, "meter")
     assert repr(q) == "Quantity(5.0, 'meter')"
     assert str(q) == "5.0 meter"
 
 
-def test_quantity_conversion():
+def test_quantity_conversion() -> None:
     """Test unit conversion functionality."""
     # Test meter to centimeter conversion
     q1 = Quantity(1.0, "meter")
@@ -53,7 +53,7 @@ def test_quantity_conversion():
     assert q5_m.unit == "meter"
 
 
-def test_quantity_equality():
+def test_quantity_equality() -> None:
     """Test equality comparison for Quantity objects."""
     q1 = Quantity(5.0, "meter")
     q2 = Quantity(5.0, "meter")
@@ -66,7 +66,7 @@ def test_quantity_equality():
     assert not (q1 == "not a quantity")
 
 
-def test_quantity_arithmetic():
+def test_quantity_arithmetic() -> None:
     """Test arithmetic operations between quantities."""
     # Test addition
     q1 = Quantity(5.0, "meter")
@@ -109,7 +109,7 @@ def test_quantity_arithmetic():
     assert q16.unit == "meter/meter"
 
 
-def test_quantity_comparison():
+def test_quantity_comparison() -> None:
     """Test comparison operators for Quantity objects."""
     q1 = Quantity(5.0, "meter")
     q2 = Quantity(3.0, "meter")
@@ -127,7 +127,7 @@ def test_quantity_comparison():
     assert q4 <= q1
 
 
-def test_dimensional_analysis():
+def test_dimensional_analysis() -> None:
     """Test dimensional analysis and compatibility checking."""
     # Test that incompatible units cannot be added
     q1 = Quantity(5.0, "meter")
@@ -150,7 +150,7 @@ def test_dimensional_analysis():
         q1.convert("second")
 
 
-def test_electrical_units():
+def test_electrical_units() -> None:
     """Test electrical units and conversions."""
     # Test voltage and current
     voltage = Quantity(230.0, "volt")
@@ -170,7 +170,7 @@ def test_electrical_units():
     assert voltage_calculated.unit == "ampere*ohm"
 
 
-def test_prefix_handling():
+def test_prefix_handling() -> None:
     """Test SI prefix handling."""
     # Test various prefixes
     q1 = Quantity(1.0, "kilometer")
@@ -203,7 +203,7 @@ def test_prefix_handling():
     assert q13 == q14
 
 
-def test_negation_and_abs():
+def test_negation_and_abs() -> None:
     """Test negation and absolute value operations."""
     q1 = Quantity(5.0, "meter")
     q2 = -q1
@@ -221,7 +221,7 @@ def test_negation_and_abs():
     assert q6.unit == "meter"
 
 
-def test_invalid_conversions():
+def test_invalid_conversions() -> None:
     """Test that invalid conversions raise appropriate errors."""
     q1 = Quantity(5.0, "meter")
 
@@ -232,7 +232,7 @@ def test_invalid_conversions():
         q1.convert("second")  # Incompatible dimensions
 
 
-def test_new_derived_units():
+def test_new_derived_units() -> None:
     """Test the new derived units."""
     # Test speed units
     speed1 = Quantity(25.0, "meter/second")
@@ -263,7 +263,7 @@ def test_new_derived_units():
     assert abs(energy_cal.value - 239.0) < 0.1  # 1000 J ≈ 239 cal
 
 
-def test_complex_conversions():
+def test_complex_conversions() -> None:
     """Test complex unit conversions."""
     # Test speed conversion: mph to m/s
     speed_mph = Quantity(60.0, "mile/hour")
@@ -281,7 +281,7 @@ def test_complex_conversions():
     assert abs(volume_l.value - 3.78541) < 0.0001  # 1 gal ≈ 3.78541 L
 
 
-def test_physics_calculations():
+def test_physics_calculations() -> None:
     """Test physics calculations with derived units."""
     # Kinematic equation: distance = speed × time
     speed = Quantity(10.0, "meter/second")
@@ -302,7 +302,7 @@ def test_physics_calculations():
     assert abs(power.value - 98.1) < 0.1
 
 
-def test_electrical_calculations():
+def test_electrical_calculations() -> None:
     """Test electrical engineering calculations."""
     # Ohm's Law: V = I × R
     current = Quantity(2.0, "ampere")
@@ -323,7 +323,7 @@ def test_electrical_calculations():
     assert energy.unit == "ampere*ohm*ampere*second"
 
 
-def test_unit_system_dimensions():
+def test_unit_system_dimensions() -> None:
     """Test the UnitSystem dimension analysis."""
     # Test base units
     meter_dims = UnitSystem.get_dimensions("meter")

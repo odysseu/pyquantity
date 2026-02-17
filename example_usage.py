@@ -6,7 +6,7 @@ Example usage of the PyQuantity package.
 from pyquantity.core import Quantity
 
 
-def main():
+def main() -> None:
     print("PyQuantity Example Usage")
     print("=" * 30)
 
