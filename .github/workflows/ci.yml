@@ -79,10 +79,11 @@ jobs:
 
     - name: Bump version and push tag
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-      id: ${{ steps.extract_version.outputs.package_version }}
+      id: bump_version
       uses: mathieudutour/github-tag-action@v6.2
       with:
         github_token: ${{ secrets.PROJECT_TOKEN }}
+        custom_tag: ${{ steps.extract_version.outputs.package_version }}
         default_bump: patch
 
     - name: Create GitHub release
