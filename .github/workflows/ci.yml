@@ -85,9 +85,12 @@ jobs:
 
     - name: Create and push new tag
       if: steps.check-tag.outputs.tag_exists == 'false' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      env:
+        USERNAME: ${{ vars.USERNAME }}
+        USEREMAIL: ${{ vars.USEREMAIL }}
       run: |
-        git config user.name "GitHub Actions"
-        git config user.email "actions@github.com"
+        git config user.name "$USERNAME"
+        git config user.email "$USEREMAIL"
         git tag v${{ steps.extract-version.outputs.current_version }}
         git push origin v${{ steps.extract-version.outputs.current_version }}
 
