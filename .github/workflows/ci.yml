@@ -71,9 +71,18 @@ jobs:
 
     - name: Bump version and push tag
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-      uses: laputansoft/github-tag-action@v4.6
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v6.2
       with:
         github_token: ${{ secrets.PROJECT_TOKEN }}
-        tag: v${{ steps.extract-version.outputs.current_version }}
+        default_bump: patch
+
+    - name: Create a GitHub release
+      if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ steps.tag_version.outputs.new_tag }}
+        name: Release ${{ steps.tag_version.outputs.new_tag }}
+        body: ${{ steps.tag_version.outputs.changelog }}
 
 
