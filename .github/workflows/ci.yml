@@ -86,15 +86,13 @@ jobs:
         custom_tag: ${{ steps.extract_version.outputs.package_version }}
         default_bump: patch
 
-    - name: Create GitHub release
-      if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-      uses: ncipollo/release-action@v1
-      with:
-        tag: ${{ steps.extract_version.outputs.package_version }}
-        name: Release ${{ steps.extract_version.outputs.package_version }}
-        body: |-
-          Release created from package version ${{ steps.extract_version.outputs.package_version }}
-
-          **Package Version**: ${{ steps.extract_version.outputs.package_version }}
-
-
+#    - name: Create GitHub release
+#      if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+#      uses: ncipollo/release-action@v1
+#      with:
+#        tag: ${{ steps.extract_version.outputs.package_version }}
+#        name: Release ${{ steps.extract_version.outputs.package_version }}
+#        body: |-
+#          Release created from package version ${{ steps.extract_version.outputs.package_version }}
+#
+#          **Package Version**: ${{ steps.extract_version.outputs.package_version }}
