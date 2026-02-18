@@ -5,6 +5,7 @@
 
 import os
 import sys
+import re
 from datetime import datetime
 
 # -- Path setup --------------------------------------------------------------
@@ -21,8 +22,17 @@ project = 'pyquantity'
 copyright = f'{datetime.now().year}, pyquantity Developers'
 author = 'pyquantity Developers'
 
+# Read version from __init__.py to avoid duplication
+def get_version():
+    init_path = os.path.join(os.path.abspath('../../src'), 'pyquantity', '__init__.py')
+    with open(init_path, 'r', encoding='utf-8') as f:
+        version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f.read(), re.M)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
+
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = get_version()
 
 # -- General configuration ---------------------------------------------------
 

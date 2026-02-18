@@ -5,7 +5,7 @@ This package provides tools for working with physical quantities, units,
 and dimensional analysis.
 """
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 __author__ = "odysseu"
 __email__ = "uboucherie1@gmail.com"
 __license__ = "MIT"

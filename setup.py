@@ -7,16 +7,25 @@ certain build tools that still expect it. The primary configuration is
 in pyproject.toml following PEP 621.
 """
 
+import re
 from setuptools import setup
 
 # Read the long description from README.md
 with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
+# Read version from __init__.py to avoid duplication
+def get_version():
+    with open("src/pyquantity/__init__.py", "r", encoding="utf-8") as f:
+        version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f.read(), re.M)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
+
 setup(
     # Basic package information (also defined in pyproject.toml for PEP 621)
     name="pyquantity",
-    version="0.1.0",
+    version=get_version(),
     description="A modern Python package for quantity calculations",
     long_description=long_description,
     long_description_content_type="text/markdown",
