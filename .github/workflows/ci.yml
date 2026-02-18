@@ -54,7 +54,7 @@ jobs:
     #     make html
 
     - name: Extract version from package
-      id: extract-version
+      id: extract_version
       run: |
         # Extract version from __init__.py
         version=$(python -c "from pyquantity import __version__; print(__version__)")
@@ -79,7 +79,7 @@ jobs:
 
     - name: Bump version and push tag
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-      id: ${{ steps.extract-version.outputs.package_version }}
+      id: ${{ steps.extract_version.outputs.package_version }}
       uses: mathieudutour/github-tag-action@v6.2
       with:
         github_token: ${{ secrets.PROJECT_TOKEN }}
@@ -89,11 +89,11 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ steps.create_tag.outputs.tag_name }}
-        name: Release ${{ steps.create_tag.outputs.tag_name }}
+        tag: ${{ steps.extract_version.outputs.package_version }}
+        name: Release ${{ steps.extract_version.outputs.package_version }}
         body: |-
-          Release created from package version ${{ steps.extract-version.outputs.package_version }}
+          Release created from package version ${{ steps.extract_version.outputs.package_version }}
 
-          **Package Version**: ${{ steps.extract-version.outputs.package_version }}
+          **Package Version**: ${{ steps.extract_version.outputs.package_version }}
 
 
