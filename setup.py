@@ -8,6 +8,7 @@ in pyproject.toml following PEP 621.
 """
 
 import re
+
 from setuptools import setup
 
 # Read the long description from README.md
@@ -16,7 +17,7 @@ with open("README.md", encoding="utf-8") as f:
 
 # Read version from __init__.py to avoid duplication
 def get_version():
-    with open("src/pyquantity/__init__.py", "r", encoding="utf-8") as f:
+    with open("src/pyquantity/__init__.py", encoding="utf-8") as f:
         version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f.read(), re.M)
     if version_match:
         return version_match.group(1)

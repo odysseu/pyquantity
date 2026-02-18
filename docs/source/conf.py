@@ -4,8 +4,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import os
-import sys
 import re
+import sys
 from datetime import datetime
 
 # -- Path setup --------------------------------------------------------------
@@ -25,7 +25,7 @@ author = 'pyquantity Developers'
 # Read version from __init__.py to avoid duplication
 def get_version():
     init_path = os.path.join(os.path.abspath('../../src'), 'pyquantity', '__init__.py')
-    with open(init_path, 'r', encoding='utf-8') as f:
+    with open(init_path, encoding='utf-8') as f:
         version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f.read(), re.M)
     if version_match:
         return version_match.group(1)
