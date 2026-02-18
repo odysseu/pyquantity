@@ -30,7 +30,7 @@ pip install pyquantity
 
 Pre-built wheel files are available for each release:
 
-1. Go to the [GitHub Releases page](https://github.com/your-username/pyquantity/releases)
+1. Go to the [GitHub Releases page](https://github.com/odysseu/pyquantity/releases)
 2. Download the appropriate wheel file for your platform
 3. Install using pip:
 
@@ -42,7 +42,7 @@ pip install pyquantity-1.0.0-py3-none-any.whl
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/pyquantity.git
+git clone https://github.com/odysseu/pyquantity.git
 cd pyquantity
 
 # Install in development mode
@@ -53,7 +53,7 @@ pip install -e ".[dev]"
 
 For the latest development builds:
 
-1. Go to the [GitHub Actions](https://github.com/your-username/pyquantity/actions) tab
+1. Go to the [GitHub Actions](https://github.com/odysseu/pyquantity/actions) tab
 2. Click on the latest successful workflow run
 3. Download the "python-package-distributions" artifact
 4. Extract and install the wheel file

@@ -652,14 +652,14 @@ The GitHub Actions release workflow will automatically:
 **From GitHub Releases:**
 ```bash
 # Download from the releases page
-wget https://github.com/your-username/pyquantity/releases/download/v1.0.0/pyquantity-1.0.0-py3-none-any.whl
+wget https://github.com/odysseu/pyquantity/releases/download/v1.0.0/pyquantity-1.0.0-py3-none-any.whl
 pip install pyquantity-1.0.0-py3-none-any.whl
 ```
 
 **From CI Artifacts (for development builds):**
 ```bash
 # Download the latest CI artifact
-# Go to: https://github.com/your-username/pyquantity/actions
+# Go to: https://github.com/odysseu/pyquantity/actions
 # Download "python-package-distributions" artifact from the latest successful run
 unzip python-package-distributions.zip
 pip install *.whl

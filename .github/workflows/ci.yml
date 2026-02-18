@@ -68,3 +68,27 @@ jobs:
       with:
         name: python-package-distributions-py${{ matrix.python-version }}
         path: dist/
+
+    - name: Extract current version
+      id: extract-version
+      run: |
+        echo "current_version=$(grep '__version__' src/pyquantity/__init__.py | cut -d'"' -f2)" >> $GITHUB_OUTPUT
+
+    - name: Check if tag exists
+      id: check-tag
+      run: |
+        if git ls-remote --tags origin | grep -q "refs/tags/v${{ steps.extract-version.outputs.current_version }}$"; then
+          echo "tag_exists=true" >> $GITHUB_OUTPUT
+        else
+          echo "tag_exists=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Create and push new tag
+      if: steps.check-tag.outputs.tag_exists == 'false' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git tag v${{ steps.extract-version.outputs.current_version }}
+        git push origin v${{ steps.extract-version.outputs.current_version }}
+
+
