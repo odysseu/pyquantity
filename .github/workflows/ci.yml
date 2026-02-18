@@ -53,6 +53,14 @@ jobs:
     #     cd docs
     #     make html
 
+    - name: Extract version from package
+      id: extract-version
+      run: |
+        # Extract version from __init__.py
+        version=$(python -c "from pyquantity import __version__; print(__version__)")
+        echo "Using package version: $version"
+        echo "package_version=$version" >> $GITHUB_OUTPUT
+
     - name: Build package
       run: |
         python -m build --sdist --wheel
@@ -69,20 +77,26 @@ jobs:
         name: python-package-distributions-py${{ matrix.python-version }}
         path: dist/
 
-    - name: Bump version and push tag
+    - name: Create tag from package version
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-      id: tag_version
-      uses: mathieudutour/github-tag-action@v6.2
-      with:
-        github_token: ${{ secrets.PROJECT_TOKEN }}
-        default_bump: patch
+      id: create_tag
+      run: |
+        # Create tag using the package version
+        tag_name="v${{ steps.extract-version.outputs.package_version }}"
+        echo "Creating tag: $tag_name"
+        echo "tag_name=$tag_name" >> $GITHUB_OUTPUT
+        git tag "$tag_name"
+        git push origin "$tag_name"
 
-    - name: Create a GitHub release
+    - name: Create GitHub release
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ steps.tag_version.outputs.new_tag }}
-        name: Release ${{ steps.tag_version.outputs.new_tag }}
-        body: ${{ steps.tag_version.outputs.changelog }}
+        tag: ${{ steps.create_tag.outputs.tag_name }}
+        name: Release ${{ steps.create_tag.outputs.tag_name }}
+        body: |-
+          Release created from package version ${{ steps.extract-version.outputs.package_version }}
+          
+          **Package Version**: ${{ steps.extract-version.outputs.package_version }}
 
 
