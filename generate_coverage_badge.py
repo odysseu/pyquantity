@@ -97,10 +97,6 @@ def main():
     # Generate badge
     generate_coverage_badge(coverage_percent)
 
-    # Also generate a simple text badge for README
-    with open("COVERAGE.txt", "w") as f:
-        f.write(f"Current test coverage: {coverage_percent}%")
-
     print(f"Coverage: {coverage_percent}%")
     print("Badge generated successfully!")
 

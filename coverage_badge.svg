@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="20" role="img" aria-label="Coverage: 81.1%">
+  <title>Coverage: 81.1%</title>
+  <linearGradient id="s" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <mask id="r">
+    <rect width="110" height="20" rx="3" fill="#fff"/>
+  </mask>
+  <g mask="url(#r)">
+    <rect width="70" height="20" fill="#555"/>
+    <rect x="70" width="40" height="20" fill="#dfb317"/>
+    <rect width="110" height="20" fill="url(#s)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
+    <text x="35" y="15" fill="#010101" fill-opacity=".3">Coverage</text>
+    <text x="35" y="14">Coverage</text>
+    <text x="95" y="15" fill="#010101" fill-opacity=".3">81.1%</text>
+    <text x="95" y="14">81.1%</text>
+  </g>
+</svg>

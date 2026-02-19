@@ -42,11 +42,10 @@ jobs:
     - name: Run type checker
       run: mypy src/pyquantity
 
-    - name: Run tests with coverage
-      run: pytest
-
-    - name: Generate coverage badge
-      run: python generate_coverage_badge.py
+    - name: Run tests with coverage and generate badge
+      run: |
+        pytest --cov=pyquantity --cov-report=xml --cov-report=term
+        python generate_coverage_badge.py
 
     # - name: Build documentation
     #   run: |
