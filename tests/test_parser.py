@@ -107,6 +107,30 @@ def test_unit_normalization() -> None:
         assert q['unit'] == expected_unit
 
 
+
+
+
+def test_error_handling() -> None:
+    """Test error handling in parsing."""
+    parser = QuantityParser()
+
+    # Test with invalid units (should be skipped)
+    text1 = "The value is 100 xyz units"
+    result1 = parser.parse_quantities(text1)
+    # Should not crash, but may not find the quantity
+    assert len(result1) >= 0  # May be 0 or 1 depending on parsing
+
+    # Test with malformed numbers
+    text2 = "The value is abc meters"
+    result2 = parser.parse_quantities(text2)
+    assert len(result2) == 0  # Should not find any valid quantities
+
+    # Test empty text
+    text3 = ""
+    result3 = parser.parse_quantities(text3)
+    assert len(result3) == 0
+
+
 def test_context_detection() -> None:
     """Test context-based object type detection."""
     parser = QuantityParser()

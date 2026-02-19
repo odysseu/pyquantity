@@ -343,3 +343,74 @@ def test_unit_system_dimensions() -> None:
     meter_dims = UnitSystem.get_dimensions("meter")
     second_dims = UnitSystem.get_dimensions("second")
     assert meter_dims != second_dims
+
+
+def test_unit_parsing_edge_cases() -> None:
+    """Test edge cases in unit parsing."""
+    # Test units with prefixes
+    q1 = Quantity(1.0, "kilometer")
+    assert q1.value == 1.0
+    assert q1.unit == "kilometer"
+
+    # Test compound units
+    q2 = Quantity(10.0, "meter/second")
+    assert q2.value == 10.0
+    assert q2.unit == "meter/second"
+
+    # Test units with squared/cubed suffixes
+    q3 = Quantity(9.81, "meter/second_squared")
+    assert q3.value == 9.81
+    assert q3.unit == "meter/second_squared"
+
+    # Test square units
+    q4 = Quantity(25.0, "square_meter")
+    assert q4.value == 25.0
+    assert q4.unit == "square_meter"
+
+    # Test cubic units
+    q5 = Quantity(1.0, "cubic_meter")
+    assert q5.value == 1.0
+    assert q5.unit == "cubic_meter"
+
+
+def test_complex_unit_operations() -> None:
+    """Test operations with complex units."""
+    # Test multiplication of complex units
+    speed = Quantity(10.0, "meter/second")
+    time = Quantity(5.0, "second")
+    distance = speed * time
+    assert distance.value == 50.0
+    assert distance.unit == "meter/second*second"
+
+    # Test division of complex units
+    distance2 = Quantity(100.0, "meter")
+    speed2 = distance2 / time
+    assert speed2.value == 20.0
+    assert speed2.unit == "meter/second"
+
+
+def test_prefix_handling() -> None:
+    """Test handling of SI prefixes."""
+    # Test various prefixes
+    q1 = Quantity(1.0, "millimeter")
+    q2 = Quantity(1000.0, "micrometer")
+    assert q1.convert("meter").value == q2.convert("meter").value
+
+    # Test prefix conversion
+    q3 = Quantity(1.0, "kilometer")
+    q4 = q3.convert("meter")
+    assert q4.value == 1000.0
+    assert q4.unit == "meter"
+
+    # Test very small prefixes
+    q5 = Quantity(1.0, "nanometer")
+    q6 = q5.convert("meter")
+    assert q6.value == 1e-9
+
+    # Test very large prefixes
+    q7 = Quantity(1.0, "megameter")
+    q8 = q7.convert("meter")
+    assert q8.value == 1e6
+
+
+
