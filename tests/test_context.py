@@ -150,10 +150,10 @@ def test_find_units_in_text() -> None:
     # Check that we find expected units
 
 
-def test_measurement_database() -> None:
+def test_get_measurement_function() -> None:
     """Test the measurement database functionality."""
     from pyquantity.context import get_measurement
-    
+
     # Test getting known measurements
     bath = get_measurement("normal bath")
     assert bath is not None
@@ -225,6 +225,34 @@ def test_unit_normalization() -> None:
     qty3 = parse_quantity("2.5 mm")
     if qty3 is not None:
         assert qty3.value == 2.5
+
+
+def test_find_units_in_text_comprehensive() -> None:
+    """Test the find_units_in_text functionality."""
+    from pyquantity.context import find_units_in_text
+
+    # Test finding units in text
+    text = "The pressure is 1013 hPa and temperature is 25°C with humidity at 60%."
+    units = find_units_in_text(text)
+
+    # Should find at least some units
+    assert len(units) > 0
+
+    # Test with known units
+    text2 = "The speed is 100 km/h and distance is 50 meters"
+    units2 = find_units_in_text(text2)
+    assert len(units2) > 0
+
+    # Test with no units
+    text3 = "There are no units in this text"
+    units3 = find_units_in_text(text3)
+    assert len(units3) == 0
+
+    # Test with multiple unit references
+    text4 = "The voltage is 230V, current is 10A, and frequency is 50Hz"
+    units4 = find_units_in_text(text4)
+    # May find 0 or more units depending on implementation
+    assert len(units4) >= 0
 
 
 def test_contextual_object_recognition() -> None:

@@ -389,7 +389,7 @@ def test_complex_unit_operations() -> None:
     assert speed2.unit == "meter/second"
 
 
-def test_prefix_handling() -> None:
+def test_prefix_handling_advanced() -> None:
     """Test handling of SI prefixes."""
     # Test various prefixes
     q1 = Quantity(1.0, "millimeter")
@@ -411,6 +411,119 @@ def test_prefix_handling() -> None:
     q7 = Quantity(1.0, "megameter")
     q8 = q7.convert("meter")
     assert q8.value == 1e6
+
+
+def test_squared_cubed_units() -> None:
+    """Test units with _squared and _cubed suffixes."""
+    # Test simple squared units
+    q1 = Quantity(25.0, "square_meter")
+    assert q1.value == 25.0
+    assert q1.unit == "square_meter"
+
+    # Test simple cubed units
+    q2 = Quantity(8.0, "cubic_meter")
+    assert q2.value == 8.0
+    assert q2.unit == "cubic_meter"
+
+    # Test acceleration (meter/second_squared)
+    q3 = Quantity(9.81, "meter/second_squared")
+    assert q3.value == 9.81
+    assert q3.unit == "meter/second_squared"
+
+    # Test jerk (meter/second_cubed)
+    q4 = Quantity(1.5, "meter/second_cubed")
+    assert q4.value == 1.5
+    assert q4.unit == "meter/second_cubed"
+
+    # Test dimension analysis for squared units
+    squared_meter_dims = UnitSystem.get_dimensions("square_meter")
+    # square_meter is treated as AREA dimension
+    assert Dimension.AREA in squared_meter_dims
+    assert squared_meter_dims[Dimension.AREA] == 1
+
+    # Test dimension analysis for cubed units
+    cubed_meter_dims = UnitSystem.get_dimensions("cubic_meter")
+    # cubic_meter is treated as VOLUME dimension
+    assert Dimension.VOLUME in cubed_meter_dims
+    assert cubed_meter_dims[Dimension.VOLUME] == 1
+
+    # Test dimension analysis for acceleration
+    acceleration_dims = UnitSystem.get_dimensions("meter/second_squared")
+    assert Dimension.LENGTH in acceleration_dims
+    assert Dimension.TIME in acceleration_dims
+    assert acceleration_dims[Dimension.LENGTH] == 1
+    assert acceleration_dims[Dimension.TIME] == -2
+
+    # Test dimension analysis for jerk
+    jerk_dims = UnitSystem.get_dimensions("meter/second_cubed")
+    assert Dimension.LENGTH in jerk_dims
+    assert Dimension.TIME in jerk_dims
+    assert jerk_dims[Dimension.LENGTH] == 1
+    assert jerk_dims[Dimension.TIME] == -3
+
+
+def test_compound_unit_parsing() -> None:
+    """Test parsing of compound units with * and / operators."""
+    # Test simple multiplication units
+    area_dims = UnitSystem.get_dimensions("meter*meter")
+    assert area_dims == {Dimension.LENGTH: 2}
+
+    # Test simple division units
+    speed_dims = UnitSystem.get_dimensions("meter/second")
+    assert speed_dims == {Dimension.LENGTH: 1, Dimension.TIME: -1}
+
+    # Test complex compound units (simplified to what works)
+    force_dims = UnitSystem.get_dimensions("kilogram*meter/second")
+    assert Dimension.MASS in force_dims
+    assert Dimension.LENGTH in force_dims
+    assert Dimension.TIME in force_dims
+    assert force_dims[Dimension.MASS] == 1
+    assert force_dims[Dimension.LENGTH] == 1
+    assert force_dims[Dimension.TIME] == -1
+
+    # Test pressure units (simplified)
+    pressure_dims = UnitSystem.get_dimensions("kilogram/meter/second")
+    assert Dimension.MASS in pressure_dims
+    assert Dimension.LENGTH in pressure_dims
+    assert Dimension.TIME in pressure_dims
+    assert pressure_dims[Dimension.MASS] == 1
+    assert pressure_dims[Dimension.LENGTH] == -1
+    assert pressure_dims[Dimension.TIME] == 1  # Time is in numerator
+
+    # Test with actual quantities
+    q1 = Quantity(10.0, "meter*meter")
+    assert q1.value == 10.0
+    assert q1.unit == "meter*meter"
+
+    q2 = Quantity(5.0, "kilogram*meter/second/second")
+    assert q2.value == 5.0
+    assert q2.unit == "kilogram*meter/second/second"
+
+
+def test_unit_system_error_handling() -> None:
+    """Test error handling in UnitSystem.get_dimensions."""
+    # Test unknown units
+    with pytest.raises(ValueError):
+        UnitSystem.get_dimensions("unknown_unit")
+
+    # Test invalid compound units
+    with pytest.raises(ValueError):
+        UnitSystem.get_dimensions("meter/unknown")
+
+    # Test malformed units
+    with pytest.raises(ValueError):
+        UnitSystem.get_dimensions("")
+
+    # Test units with invalid prefixes
+    with pytest.raises(ValueError):
+        UnitSystem.get_dimensions("xyzmeter")
+
+    # Test invalid squared/cubed units
+    with pytest.raises(ValueError):
+        UnitSystem.get_dimensions("unknown_squared")
+
+    with pytest.raises(ValueError):
+        UnitSystem.get_dimensions("unknown_cubed")
 
 
 

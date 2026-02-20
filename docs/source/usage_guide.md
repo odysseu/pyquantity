@@ -230,6 +230,95 @@ for q in quantities:
     print(f"{q['object']}: {q['value']} {q['unit']}")
 ```
 
+### Enterprise Example: Industrial Equipment Specification
+
+```python
+# Enterprise-level example with comprehensive equipment specifications
+enterprise_text = """
+The HVAC system specifications are as follows:
+
+1. Main Compressor Unit:
+   - Rated Power: 75 kW
+   - Voltage: 480 V AC, 3-phase
+   - Current: 120 A per phase
+   - Efficiency: 92%
+   - Operating Temperature Range: -20°C to 50°C
+   - Maximum Pressure: 35 bar
+   - Cooling Capacity: 250 kW at 35°C ambient
+
+2. Air Handling Unit:
+   - Airflow Rate: 12,500 m³/h
+   - Static Pressure: 450 Pa
+   - Fan Power: 15 kW
+   - Filtration Efficiency: 95% at 0.3 µm particles
+   - Noise Level: 65 dB at 3 meters
+
+3. Refrigerant Circuit:
+   - Refrigerant Type: R-410A
+   - Charge Volume: 45 kg
+   - Operating Pressure (High Side): 28 bar
+   - Operating Pressure (Low Side): 8 bar
+   - Subcooling: 5 K
+   - Superheat: 8 K
+
+4. Control System:
+   - Supply Voltage: 24 V DC
+   - Control Current: 100 mA
+   - Response Time: < 500 ms
+   - Accuracy: ±0.5°C for temperature control
+   - Communication Protocol: Modbus RTU at 9600 baud
+
+5. Safety Features:
+   - Maximum Current Protection: 150 A
+   - Overpressure Protection: 40 bar
+   - Overtemperature Protection: 60°C
+   - Emergency Stop Response Time: < 100 ms
+"""
+
+# Parse the comprehensive specifications
+spec_quantities = parse_quantities(enterprise_text, format='list')
+
+# Organize by category
+categories = {}
+for q in spec_quantities:
+    category = q.get('object', 'general')
+    if category not in categories:
+        categories[category] = []
+    categories[category].append(q)
+
+# Display organized results
+for category, items in categories.items():
+    print(f"\n{category.upper()}:")
+    for item in items:
+        print(f"  - {item['value']} {item['unit']} ({item.get('original_text', '')})")
+
+# Example output analysis
+print(f"\nTotal quantities found: {len(spec_quantities)}")
+print(f"Categories identified: {len(categories)}")
+
+# Convert to structured data for enterprise integration
+structured_data = []
+for q in spec_quantities:
+    structured_data.append({
+        'parameter': q.get('object', 'unknown'),
+        'value': q['value'],
+        'unit': q['unit'],
+        'source_text': q.get('original_text', ''),
+        'quantity_object': str(q.get('quantity', ''))
+    })
+
+# This structured data can be integrated with enterprise systems
+# such as ERP, PLM, or IoT platforms
+```
+
+**Note:** The object type detection (voltage, current, pressure, etc.) is based on contextual analysis and may not always be perfect. In enterprise applications, you may want to:
+- Post-process the results to refine object types
+- Use the raw quantities and apply business rules for classification
+- Integrate with domain-specific ontologies for better categorization
+
+### Scientific Notation
+=======
+
 ### Scientific Notation
 
 ```python

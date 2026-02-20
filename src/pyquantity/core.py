@@ -240,6 +240,16 @@ class UnitSystem:
         "kilowatt_hour": {"base": "1000*watt*hour", "dimensions": {Dimension.LENGTH: 2, Dimension.MASS: 1, Dimension.TIME: -2}},
         "ampere_hour": {"base": "ampere*hour", "dimensions": {Dimension.TIME: 1, Dimension.ELECTRIC_CURRENT: 1}},
         "millampere_hour": {"base": "0.001*ampere*hour", "dimensions": {Dimension.TIME: 1, Dimension.ELECTRIC_CURRENT: 1}},
+
+        # Grocery and cooking units
+        "pound": {"base": "0.453592*kilogram", "dimensions": {Dimension.MASS: 1}},
+        "ounce": {"base": "0.0283495*kilogram", "dimensions": {Dimension.MASS: 1}},
+        "pint": {"base": "0.473176*liter", "dimensions": {Dimension.VOLUME: 1}},
+        "quart": {"base": "0.946353*liter", "dimensions": {Dimension.VOLUME: 1}},
+        "teaspoon": {"base": "0.005*liter", "dimensions": {Dimension.VOLUME: 1}},
+        "tablespoon": {"base": "0.015*liter", "dimensions": {Dimension.VOLUME: 1}},
+        "cup": {"base": "0.24*liter", "dimensions": {Dimension.VOLUME: 1}},
+        "dozen": {"base": "12", "dimensions": {}},  # Dimensionless
     }
 
     # SI prefixes
@@ -659,6 +669,53 @@ class UnitSystem:
             return 3.78541  # 1 US gallon = 3.78541 liters
         if from_unit == "liter" and to_unit == "gallon":
             return 1.0 / 3.78541  # 1 liter = 1/3.78541 US gallons
+
+        # Grocery unit conversions
+        # pound to kilogram conversions
+        if from_unit == "pound" and to_unit == "kilogram":
+            return 0.453592  # 1 pound = 0.453592 kg
+        if from_unit == "kilogram" and to_unit == "pound":
+            return 1.0 / 0.453592  # 1 kg = 1/0.453592 pounds
+        if from_unit == "pound" and to_unit == "gram":
+            return 453.592  # 1 pound = 453.592 g
+        if from_unit == "gram" and to_unit == "pound":
+            return 1.0 / 453.592  # 1 g = 1/453.592 pounds
+
+        # ounce to gram conversions
+        if from_unit == "ounce" and to_unit == "gram":
+            return 28.3495  # 1 ounce = 28.3495 g
+        if from_unit == "gram" and to_unit == "ounce":
+            return 1.0 / 28.3495  # 1 g = 1/28.3495 ounces
+
+        # pint to liter conversions
+        if from_unit == "pint" and to_unit == "liter":
+            return 0.473176  # 1 US pint = 0.473176 liters
+        if from_unit == "liter" and to_unit == "pint":
+            return 1.0 / 0.473176  # 1 liter = 1/0.473176 US pints
+
+        # quart to liter conversions
+        if from_unit == "quart" and to_unit == "liter":
+            return 0.946353  # 1 US quart = 0.946353 liters
+        if from_unit == "liter" and to_unit == "quart":
+            return 1.0 / 0.946353  # 1 liter = 1/0.946353 US quarts
+
+        # cup to liter conversions
+        if from_unit == "cup" and to_unit == "liter":
+            return 0.24  # 1 US cup = 0.24 liters
+        if from_unit == "liter" and to_unit == "cup":
+            return 1.0 / 0.24  # 1 liter = 1/0.24 US cups
+
+        # teaspoon to milliliter conversions
+        if from_unit == "teaspoon" and to_unit == "milliliter":
+            return 5.0  # 1 teaspoon = 5 ml
+        if from_unit == "milliliter" and to_unit == "teaspoon":
+            return 1.0 / 5.0  # 1 ml = 1/5 teaspoons
+
+        # tablespoon to milliliter conversions
+        if from_unit == "tablespoon" and to_unit == "milliliter":
+            return 15.0  # 1 tablespoon = 15 ml
+        if from_unit == "milliliter" and to_unit == "tablespoon":
+            return 1.0 / 15.0  # 1 ml = 1/15 tablespoons
 
         # For other cases, assume same scale (identity conversion)
         return cls.PREFIXES.get(from_prefix, 1.0) / cls.PREFIXES.get(to_prefix, 1.0)

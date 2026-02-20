@@ -54,6 +54,17 @@ class QuantityParser:
         'km/h': 'kilometer/hour', 'mph': 'mile/hour',
         'kg/m³': 'kilogram/meter³',
         'm/s': 'meter/second', 'm/s²': 'meter/second²',
+
+        # Grocery and cooking units
+        'lb': 'pound', 'lbs': 'pound', 'pounds': 'pound',
+        'oz': 'ounce', 'ounces': 'ounce',
+        'pt': 'pint', 'pints': 'pint',
+        'qt': 'quart', 'quarts': 'quart',
+        'gal': 'gallon', 'gallons': 'gallon',
+        'tsp': 'teaspoon', 'teaspoons': 'teaspoon',
+        'tbsp': 'tablespoon', 'tablespoons': 'tablespoon',
+        'cup': 'cup', 'cups': 'cup',
+        'dozen': 'dozen', 'dozens': 'dozen',
     }
 
     # Common quantity keywords for context
@@ -168,6 +179,9 @@ class QuantityParser:
                 # Determine the object type based on context and original unit
                 object_type = self._determine_object_type(text, match.start(), match.end(), unit_str)
 
+                # Extract the item name being measured
+                item_name = self._extract_item_name(text, match.start(), match.end())
+
                 # For display, use the original unit (but we'll keep both)
 
                 quantities.append({
@@ -177,7 +191,8 @@ class QuantityParser:
                     'original_text': original_text,
                     'quantity': quantity,
                     'start_pos': match.start(),
-                    'end_pos': match.end()
+                    'end_pos': match.end(),
+                    'item': item_name
                 })
 
             except (ValueError, KeyError):
@@ -205,6 +220,7 @@ class QuantityParser:
             return 'ohm'
 
         # Handle SI prefixes - check for valid prefix + base unit combinations
+        # Sort prefixes by length (longest first) to handle multi-character prefixes
         for prefix in sorted(self.SI_PREFIXES.keys(), key=len, reverse=True):
             if unit_str.startswith(prefix):
                 base_unit = unit_str[len(prefix):]
@@ -287,6 +303,89 @@ class QuantityParser:
 
         return unit_to_object.get(base_unit, 'measurement')
 
+    def _extract_item_name(self, text: str, quantity_start: int, quantity_end: int) -> str:
+        """Extract the item name being measured from the surrounding context."""
+        text_after = text[quantity_end:].strip()
+
+        # Look for common prepositions that often precede the item name
+        prepositions = ['of', 'for', 'with', 'in', 'on', 'at', 'by']
+
+        # Find the first preposition after the quantity
+        for prep in prepositions:
+            prep_pos = text_after.lower().find(prep + ' ')
+            if prep_pos != -1:
+                # Extract text after the preposition
+                item_start = prep_pos + len(prep) + 1
+                item_text = text_after[item_start:]
+
+                # Extract until we hit punctuation or conjunction
+                # Use word-based extraction instead of character-based
+                words: list[str] = []
+                current_word: list[str] = []
+                for i, char in enumerate(item_text):
+                    if char.isspace():
+                        if current_word:
+                            words.append(''.join(current_word))
+                            current_word = []
+                        # Check if next non-space character starts a conjunction
+                        remaining_text = item_text[i:].lstrip()
+                        if remaining_text.startswith('and ') or remaining_text.startswith('or '):
+                            break
+                        elif remaining_text and remaining_text[0] in [',', ';']:
+                            break
+                    elif char in [',', ';']:
+                        if current_word:
+                            words.append(''.join(current_word))
+                            current_word = []
+                        break
+                    else:
+                        current_word.append(char)
+
+                # Add any remaining word only if we didn't break on punctuation/conjunction
+                if current_word:
+                    words.append(''.join(current_word))
+
+                # Clean up the item name
+                item_str = ' '.join(words).strip()
+                # Remove trailing punctuation
+                if item_str and item_str[-1] in [',', '.', ';']:
+                    item_str = item_str[:-1].strip()
+                return item_str
+
+        # If no preposition found, try to extract noun phrases after the quantity
+        # Use word-based extraction
+        words2: list[str] = []
+        current_word2: list[str] = []
+        for i, char in enumerate(text_after):
+            if char.isspace():
+                if current_word2:
+                    words2.append(''.join(current_word2))
+                    current_word2 = []
+                # Check if next non-space character starts a conjunction
+                remaining_text = text_after[i:].lstrip()
+                if remaining_text.startswith('and ') or remaining_text.startswith('or '):
+                    break
+                elif remaining_text and remaining_text[0] in [',', ';']:
+                    break
+            elif char in [',', ';']:
+                if current_word2:
+                    words2.append(''.join(current_word2))
+                    current_word2 = []
+                break
+            else:
+                current_word2.append(char)
+
+        # Add any remaining word only if we didn't break on punctuation/conjunction
+        if current_word2:
+            words2.append(''.join(current_word2))
+
+        # Clean up the item name
+        item_str = ' '.join(words2).strip()
+        # Remove trailing punctuation
+        if item_str and item_str[-1] in [',', '.', ';']:
+            item_str = item_str[:-1].strip()
+        return item_str
+
     def extract_to_json(self, text: str) -> str:
         """
         Extract quantities and return as JSON string.
@@ -309,6 +408,9 @@ class QuantityParser:
                 'unit': q['unit'],
                 'original_text': q['original_text']
             }
+            # Include item name if available
+            if 'item' in q:
+                quantity_dict['item'] = q['item']
             json_data.append(quantity_dict)
 
         return json.dumps(json_data, indent=2)
@@ -324,15 +426,19 @@ class QuantityParser:
             List of dictionaries with quantity information
         """
         quantities = self.extract_quantities(text)
-        return [
-            {
+        result = []
+        for q in quantities:
+            quantity_dict = {
                 'object': q['object'],
                 'value': q['value'],
                 'unit': q['unit'],
                 'original_text': q['original_text']
             }
-            for q in quantities
-        ]
+            # Include item name if available
+            if 'item' in q:
+                quantity_dict['item'] = q['item']
+            result.append(quantity_dict)
+        return result
 
 
 def parse_quantities(text: str, format: str = 'list') -> Any:
