@@ -248,7 +248,7 @@ def test_error_handling_format() -> None:
 def test_item_extraction_basic() -> None:
     """Test basic item extraction functionality."""
     parser = QuantityParser()
-    
+
     # Test simple item extraction
     text = "2 liters of milk"
     result = parser.extract_quantities(text)
@@ -261,7 +261,7 @@ def test_item_extraction_basic() -> None:
 def test_item_extraction_multi_word() -> None:
     """Test extraction of multi-word item names."""
     parser = QuantityParser()
-    
+
     # Test multi-word items
     text = "1.2 liters of orange juice and 500 grams of olive oil"
     result = parser.extract_quantities(text)
@@ -273,7 +273,7 @@ def test_item_extraction_multi_word() -> None:
 def test_item_extraction_with_punctuation() -> None:
     """Test item extraction with punctuation handling."""
     parser = QuantityParser()
-    
+
     # Test items with trailing punctuation
     text = "3 kilograms of tomatoes, 1 kilogram of onions."
     result = parser.extract_quantities(text)
@@ -285,7 +285,7 @@ def test_item_extraction_with_punctuation() -> None:
 def test_item_extraction_complex_sentences() -> None:
     """Test item extraction in complex sentences."""
     parser = QuantityParser()
-    
+
     # Test complex sentence with multiple items
     text = "I bought 2.5 lbs of chicken, 1 pint of berries, and 300 grams of cheese for the recipe."
     result = parser.extract_quantities(text)
@@ -298,7 +298,7 @@ def test_item_extraction_complex_sentences() -> None:
 def test_item_extraction_no_preposition() -> None:
     """Test item extraction when no preposition is present."""
     parser = QuantityParser()
-    
+
     # Test items without prepositions (directly after quantity)
     text = "The voltage is 230 V and current is 10 A"
     result = parser.extract_quantities(text)
@@ -311,7 +311,7 @@ def test_item_extraction_no_preposition() -> None:
 def test_item_extraction_json_output() -> None:
     """Test that item extraction works with JSON output."""
     parser = QuantityParser()
-    
+
     text = "500 grams of flour"
     json_result = parser.extract_to_json(text)
     import json
@@ -324,7 +324,7 @@ def test_item_extraction_json_output() -> None:
 def test_item_extraction_list_output() -> None:
     """Test that item extraction works with list output."""
     parser = QuantityParser()
-    
+
     text = "1 kilogram of sugar"
     list_result = parser.extract_to_list(text)
     assert len(list_result) == 1
@@ -335,20 +335,20 @@ def test_item_extraction_list_output() -> None:
 def test_item_extraction_edge_cases() -> None:
     """Test edge cases for item extraction."""
     parser = QuantityParser()
-    
+
     # Test with parentheses
     text = "2 liters of milk (for cooking)"
     result = parser.extract_quantities(text)
     assert len(result) == 1
     assert result[0]['item'] == "milk (for cooking)"  # Current behavior includes parentheses
-    
+
     # Test with conjunctions
     text = "1 kg of apples and 2 kg of oranges"
     result = parser.extract_quantities(text)
     assert len(result) == 2
     assert result[0]['item'] == "apples"
     assert result[1]['item'] == "oranges"
-    
+
     # Test with semicolons
     text = "500 ml of cream; 200 grams of butter"
     result = parser.extract_quantities(text)
@@ -360,7 +360,7 @@ def test_item_extraction_edge_cases() -> None:
 def test_item_extraction_backward_compatibility() -> None:
     """Test that existing functionality still works with new item field."""
     parser = QuantityParser()
-    
+
     # Test that all expected fields are still present
     text = "10 meters"
     result = parser.extract_quantities(text)
@@ -379,25 +379,25 @@ def test_item_extraction_backward_compatibility() -> None:
 def test_item_extraction_special_cases() -> None:
     """Test special cases and edge conditions for item extraction."""
     parser = QuantityParser()
-    
+
     # Test with 'for' preposition
     text = "2 cups of sugar for the cake"
     result = parser.extract_quantities(text)
     assert len(result) == 1
     assert result[0]['item'] == "sugar for the cake"
-    
+
     # Test with 'with' preposition - using recognized units
     text = "1 liter of water with lemon"
     result = parser.extract_quantities(text)
     assert len(result) == 1
     assert result[0]['item'] == "water with lemon"
-    
+
     # Test with 'in' preposition - using recognized units
     text = "3 tablespoons of honey in the jar"
     result = parser.extract_quantities(text)
     assert len(result) == 1
     assert result[0]['item'] == "honey in the jar"
-    
+
     # Test empty item extraction
     text = "5 kilograms"
     result = parser.extract_quantities(text)
@@ -408,7 +408,7 @@ def test_item_extraction_special_cases() -> None:
 def test_item_extraction_multiple_prepositions() -> None:
     """Test item extraction with multiple prepositions in context."""
     parser = QuantityParser()
-    
+
     # Test with multiple prepositions - should use first one found
     text = "1 liter of orange juice for breakfast with toast"
     result = parser.extract_quantities(text)
@@ -419,7 +419,7 @@ def test_item_extraction_multiple_prepositions() -> None:
 def test_item_extraction_no_space_after_comma() -> None:
     """Test item extraction when there's no space after comma."""
     parser = QuantityParser()
-    
+
     text = "2 kilograms,3 liters,4 grams"  # Using recognized units
     result = parser.extract_quantities(text)
     assert len(result) == 3
